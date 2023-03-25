@@ -99,13 +99,15 @@ console.log(data)
 
   // Search function
   const searchInput = document.querySelector('.map-search');
-  searchInput.oninput = function () {
-    searchAddress(searchInput.value)
+  if(searchInput) {
+    searchInput.oninput = function () {
+      searchAddress(searchInput.value)
+    }
   }
 
   // Sort Function
   const sortSelect = document.querySelector('.map-sort');
-  sortSelect.addEventListener('change', function handleChange() {
+  sortSelect?.addEventListener('change', function handleChange() {
 
     var dataProperties = document.querySelectorAll('.prop-list-wrap')
     dataProperties = Array.prototype.slice.call(dataProperties)
@@ -288,17 +290,19 @@ function initData(data) {
   const InputTwo = document.querySelector("#two");
   const minPrice = Math.min(...markers.map(item => item.price));
   const maxPrice = Math.max(...markers.map(item => item.price));
-  lowerInput.setAttribute("min",minPrice);
-  lowerInput.setAttribute("max",maxPrice);
-  lowerInput.value = minPrice;
-  InputOne.value = minPrice;
-  upperInput.setAttribute("min",minPrice);
-  upperInput.setAttribute("max",maxPrice);
-  upperInput.value = maxPrice;
-  InputTwo.value = maxPrice;
+  if(lowerInput && upperInput && InputOne && InputTwo) {
+    lowerInput.setAttribute("min",minPrice);
+    lowerInput.setAttribute("max",maxPrice);
+    lowerInput.value = minPrice;
+    InputOne.value = minPrice;
+    upperInput.setAttribute("min",minPrice);
+    upperInput.setAttribute("max",maxPrice);
+    upperInput.value = maxPrice;
+    InputTwo.value = maxPrice;
+  }
 
   // add Neighborhood filter based on data
-  targetFilterCity.appendChild(select);
+  targetFilterCity?.appendChild(select);
 
   // Add Neighborhood marker
   addNeighborhoodMarker(neighborhoodList)
