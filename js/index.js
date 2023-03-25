@@ -10,6 +10,7 @@ let markerPosition = []
 let neighborhoodList = []
 
 const splitMarkerZoom = 13;
+const staticImgUrl = "https://cdn.jsdelivr.net/gh/rizalhasbianto/googlemapfilemaker@main/img/";
 
 function initMap() {
 
@@ -377,7 +378,7 @@ async function addNeighborhoodMarker( neighborhoodList ) {
       position: findNeighborhoodGeo.location,
       map,
       icon: {
-        url:"./img/marker-blue.png",
+        url: staticImgUrl+"marker-blue.png",
         scaledSize: new google.maps.Size(30, 30)
       },
       visible: true,
@@ -418,7 +419,7 @@ function addMarker( markerData, infoWindow ) {
     type: markerData.type,
     visible: false,
     icon: {
-      url:"./img/property-marker.png"
+      url: staticImgUrl+"property-marker.png"
     },
   });
 
