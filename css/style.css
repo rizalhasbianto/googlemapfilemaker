@@ -1,0 +1,609 @@
+/* 
+ * Always set the map height explicitly to define the size of the div element
+ * that contains the map. 
+ */
+
+@font-face {
+  font-family: ttfirs;
+  src: url("./font/TT-Firs-Extrabold.otf");
+  font-weight: 700;
+}
+@font-face {
+  font-family: ttfirs;
+  src: url("./font/TT-Firs-Bold.otf");
+  font-weight: 600;
+}
+@font-face {
+  font-family: ttfirs;
+  src: url("./font/TT-Firs-Medium.otf");
+  font-weight: 500;
+}
+@font-face {
+  font-family: ttfirs;
+  src: url("./font/TT-Firs-Regular.otf");
+  font-weight: 400;
+}
+@font-face {
+  font-family: ttfirs;
+  src: url("./font/TT-Firs-Light.otf");
+  font-weight: 300;
+}
+@font-face {
+  font-family: ttfirs;
+  src: url("./font/TT-Firs-Thin.otf");
+  font-weight: 200;
+}
+
+.container {
+  max-width: 1440px;
+  width: 100%;
+  margin: auto;
+  height: 700px;
+  display: flex;
+  margin-top: 100px;
+  font-family: ttfirs;
+  font-weight: 400;
+  font-size: 14px;
+}
+p {
+  margin: 0;
+}
+#map {
+  height: 100%;
+  width: 50%;
+}
+.info {
+  padding: 0 50px;
+  width: 50%;
+  height: 100%;
+  overflow: scroll;
+}
+.info::-webkit-scrollbar {
+  display: none;
+}
+.properties {
+  display: flex;
+  flex-wrap: wrap;
+}
+.prop-list-wrap {
+  width: 33.33333%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.property-info {
+  background: #F7F7F7;
+  padding: 10px;
+}
+.prop-list-wrap img {
+  width: 100%;
+}
+.prop-list-wrap a {
+  color: #585858;
+  position: relative;
+  text-decoration: none;
+}
+.prop-list-wrap h2 {
+  position: absolute;
+  top: 0;
+  color: #5A84C0;
+  border: 1px solid #5A84C0;
+  font-size: 13px;
+  padding: 2px 5px;
+  background: #fff;
+  left: 10px;
+}
+.prop-list-wrap p {
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+.prop-list-wrap .price {
+  font-size: 16px;
+  font-weight: 600;
+}
+.prop-item {
+  display: flex;
+}
+.filter--wrapper {
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  width: 100%;
+  background: #fff;
+  padding: 30px 0;
+}
+/* 
+ * Optional: Makes the sample page fill the window. 
+ */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+PRICE FILTER
+*/
+.wrapper {
+  display: block;
+}
+
+.filter-wrap {
+  position: relative;
+}
+
+.dropdown {
+  cursor: pointer;
+  border: 1px solid #585858;
+  padding: 10px;
+  margin-right: 10px;
+  position: relative;
+}
+
+.dropdown:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 9px solid transparent;
+  border-color: #585858 transparent transparent transparent;
+}
+
+.dropdown select {
+  appearance: none;
+  border: none;
+}
+
+.dropdown span {
+  margin-right: 35px;
+}
+
+.filter-label.icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+.filter-label.icon[data-status="close"] {
+  right: -20px;
+}
+
+.map-search {
+  border: 1px solid #585858;
+  padding: 11.5px;
+  display: none;
+}
+
+.property-options {
+  width: 350px;
+  border: 1px solid #5A84C0;
+  padding: 0;
+  margin: 15px 0; 
+  background-color: #fff;
+  position: absolute;
+  top: 40px;
+  display: none;
+}
+.filter-type {
+  padding: 20px;
+}
+.price-filter-title {
+  background: #F4F4F4;
+  text-align: center;
+  padding: 10px 0;  
+  margin-bottom: 20px;
+}
+
+.price-title {
+  position: relative;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.2em;
+  font-weight: 400;
+  background: #d58e32;
+  padding:10px;
+}
+
+.price-container {
+  display: flex;
+  padding: 5px 0px;
+  width: 310px;
+  margin: auto;
+  justify-content: space-between;
+}
+
+.price-field {
+  position: relative;
+  width: 310px;
+  margin: auto;
+  height: 36px;
+  box-sizing: border-box;
+  padding-top: 15px;
+  padding-left: 0px;
+}
+
+/* Reset style for input range */
+
+.price-field input[type=range] {
+  width: 100%;
+  height: 7px;
+  outline: 0;
+  box-sizing: border-box;
+  border-radius: 0px;
+  pointer-events: none;
+  -webkit-appearance: none;
+  box-shadow: none;
+  position: absolute;
+  left: -2px;
+}
+
+.price-field input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    box-shadow: none;
+}
+
+.price-field input[type=range]:active,
+.price-field input[type=range]:focus,
+.price-field input[type=range]:hover {
+  outline: 0;
+  box-shadow: none;
+}
+
+.price-field input[type=range]::-ms-track {
+  width: 188px;
+  height: 2px; 
+  border: 0;
+  outline: 0;
+  box-sizing: border-box;
+  border-radius: 5px;
+  pointer-events: none;
+  background: transparent;
+  border-color: transparent;
+  color: red;
+  border-radius: 5px;
+}
+
+/* Style toddler input range */
+
+.price-field input[type=range]::-webkit-slider-thumb { 
+  /* WebKit/Blink */
+  position: relative;
+  appearance: none;
+  margin: 0;
+  border-left: 1px solid #000;
+  outline: 0;
+  border-radius: 0;
+  height: 26px;
+  width: 5px;
+  margin-top: -13px;
+  cursor: pointer;
+  pointer-events: all;
+  z-index: 100;
+  -webkit-appearance: none;
+}
+
+.price-field input[type=range]::-moz-range-thumb { 
+  /* Firefox */
+  position: relative;
+  appearance: none;
+  margin: 0;
+  border-left: 1px solid #000;
+  outline: 0;
+  border-radius: 0;
+  height: 26px;
+  width: 5px;
+  margin-top: -13px;
+  cursor: pointer;
+  pointer-events: all;
+  z-index: 100;
+  -webkit-appearance: none;
+}
+
+.price-field input[type=range]::-ms-thumb  { 
+  /* IE */
+  position: relative;
+  appearance: none;
+  margin: 0;
+  border-left: 1px solid #000;
+  outline: 0;
+  border-radius: 0;
+  height: 26px;
+  width: 5px;
+  margin-top: -13px;
+  cursor: pointer;
+  pointer-events: all;
+  z-index: 100;
+  -webkit-appearance: none;
+}
+
+.price-field #upper::-webkit-slider-thumb {
+  border-left: none;
+  border-right: 1px solid #000;
+}
+.price-field #upper::-moz-range-thumb {
+  border-left: none;
+  border-right: 1px solid #000;
+}
+.price-field #upper::-ms-thumb {
+  border-left: none;
+  border-right: 1px solid #000;
+}
+/* Style track input range */
+
+.price-field input[type=range]::-webkit-slider-runnable-track { 
+  /* WebKit/Blink */
+  width: 350px;
+  height: 1px;
+  cursor: pointer;
+  background: #000;
+  border-radius: 0px;
+}
+
+.price-field input[type=range]::-moz-range-track { 
+  /* Firefox */
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+  background: #000;
+  border-radius: 0px;
+}
+
+.price-field input[type=range]::-ms-track { 
+  /* IE */
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+  background: #000;
+  border-radius: 0px;
+}
+
+/* Style for input value block */
+
+.price-wrap {
+  display: flex;
+  color: #242424;
+  font-size: 14px;
+  line-height: 1.2em;
+  font-weight: 400;
+  margin: 20px;
+}
+
+.price-wrap-1, 
+.price-wrap-2 {
+  display: flex;
+  margin-left: 0px;
+  border: 1px solid #585858;
+   padding: 3px;
+   width: 45%;
+}
+
+.price-title {
+  margin-right: 5px;
+}
+
+.price-wrap_line {
+    margin: 6px 0px 5px 5px;
+}
+
+.price-wrap #one, 
+.price-wrap #two {
+  border: 0;
+  width: 100%;
+}
+
+.price-wrap label {
+    text-align: right;
+    margin-top: 2px;
+    padding-left: 5px;
+}
+
+/* Style for active state input */
+    
+.price-field input[type=range]:hover::-webkit-slider-thumb {
+  transition-duration: 0.3s;
+}
+
+.price-field input[type=range]:active::-webkit-slider-thumb {
+  transition-duration: 0.3s;
+}
+
+.price-tag {
+  background-color: #4285F4;
+  border-radius: 8px;
+  color: #FFFFFF;
+  font-size: 14px;
+  padding: 10px 15px;
+  position: relative;
+}
+
+.price-tag::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, 0);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #4285F4;
+}
+
+[class$=api-load-alpha-banner] {
+  display: none;
+}
+
+/* MARKER INFO */
+.marker-info {
+  min-width: 300px;
+}
+.detail-info {
+  display: flex;
+  justify-content: space-between;
+}
+.marker-info img {
+  max-width: 150px;
+  width: auto;
+}
+
+/*
+  pulse animation at map
+*/
+@-moz-keyframes pulsate {
+  from {
+      -moz-transform: scale(0.25);
+      opacity: 1.0;
+  }
+  95% {
+      -moz-transform: scale(1.3);
+      opacity: 0;
+  }
+  to {
+      -moz-transform: scale(0.3);
+      opacity: 0;
+  }
+}
+@-webkit-keyframes pulsate {
+  from {
+      -webkit-transform: scale(0.25);
+      opacity: 1.0;
+  }
+  95% {
+      -webkit-transform: scale(1.3);
+      opacity: 0;
+  }
+  to {
+      -webkit-transform: scale(0.3);
+      opacity: 0;
+  }
+}
+/* get the container that's just outside the marker image, 
+  which just happens to have our Marker title in it */
+#map div.gmnoprint[title="test"] {
+  -moz-animation: pulsate 1.5s ease-in-out infinite;
+  -webkit-animation: pulsate 1.5s ease-in-out infinite;
+  border:1pt solid #fff;
+  /* make a circle */
+  -moz-border-radius:51px;
+  -webkit-border-radius:51px;
+  border-radius:51px;
+  /* multiply the shadows, inside and outside the circle */
+  -moz-box-shadow:inset 0 0 5px #06f, inset 0 0 5px #06f, inset 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f;
+  -webkit-box-shadow:inset 0 0 5px #06f, inset 0 0 5px #06f, inset 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f;
+  box-shadow:inset 0 0 5px #06f, inset 0 0 5px #06f, inset 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f, 0 0 5px #06f;
+  /* set the ring's new dimension and re-center it */
+  height:51px!important;
+  margin:-18px 0 0 -18px;
+  width:51px!important;
+}
+
+
+/* hide the superfluous marker image since it would expand and shrink with its containing element */
+/*  #map_canvas div[style*="987654"][title] img {*/
+  #map div.gmnoprint[title="test"] img {
+      display:none;
+  }
+  /* compensate for iPhone and Android devices with high DPI, add iPad media query */
+  @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (device-width: 768px) {
+      #map div.gmnoprint[title="test"] {
+          margin:-10px 0 0 -10px;
+      }
+  }
+
+
+  /* 
+  SINGLE PROPERTY
+  */
+  .single-property-page {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+  }
+  .single-img-wrap {
+    width: 100%;
+    height: 500px;
+  }
+  .my-slider {
+    margin-right: 30px;
+  }
+  .main-img {
+    margin-bottom: 30px;
+  }
+  .main-img img {
+    width: 100%;
+    border-radius: 5px;
+  }
+  .sec-img {
+    width: 100%;
+    display: flex;
+    margin-right: 30px;
+    justify-content: space-between;
+  }
+  .sec-img img {
+    width: calc( 50% - 15px );
+    border-radius: 5px;
+  }
+  .info-wrap {
+    background: #F6F6F6;
+    border-radius: 5px;
+    padding: 50px;
+    color: #585858;
+  }
+  .property-detail .status {
+    color: #5A84C0;
+  }
+  .property-detail .status .LoansStatus {
+    color: #585858;
+  }
+  .address {
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .address .Address1 {
+    font-weight: 700;
+  }
+  .z_WebPrice {
+    font-size: 48px;
+    font-weight: 700;
+  }
+  .property-room {
+    font-size: 18px;
+    font-weight: 300;
+  }
+  .property-room .nmbr {
+    font-weight: 700;
+  }
+  .prop-room-detail {
+    display: inline-block;
+    margin-right: 20px;
+  }
+  .vendor {
+    background: #fff;
+    margin: 30px 0;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  .vendor-list p{
+    font-size: 14px;
+    font-weight: 200;
+  }
+  .vendor-role {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .vendor-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+  }
+  .vendor-list {
+    margin-bottom: 20px;
+  }
+  .vendor-list:last-child {
+    margin-bottom: 0;
+  }
