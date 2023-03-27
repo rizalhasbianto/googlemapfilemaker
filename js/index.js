@@ -30,36 +30,10 @@ fetch(url, {
 .then(data => {
   // SHOWING PROPERTIES AND ADD MARKER TO MAP
   initData(data);
-console.log(data)
   // filter function
-  const filterSelect = document.querySelectorAll('.map-filter');
   const propList = document.querySelectorAll('.prop-list-wrap');
 
-  for (let r = 0; r < filterSelect.length; r++) {
-    filterSelect[r].addEventListener('change', function handleChange() {
-      const neighborhoodSelected = document.querySelector('.filter-neighborhood select').value;
-      const typeSFR = document.getElementById("sfr").checked
-      const typeTH = document.getElementById("th").checked
-      const lowPriceSelected = document.querySelector('#one').value;
-      const highPriceSelected = document.querySelector('#two').value;
 
-      let typeSelected = []
-
-      if(typeSFR) {
-        typeSelected.push("SFR")
-      }
-      if(typeTH) {
-        typeSelected.push("TH")
-      }
-
-      // DATA FILTER
-      dataFilter(neighborhoodSelected, lowPriceSelected, highPriceSelected, propList, typeSelected);
-  
-      // GOOGLE MAPS
-      filterMarker(neighborhoodSelected, lowPriceSelected, highPriceSelected, typeSelected);
-      //centerMap(neighborhoodSelected);
-    });
-  }
 
   google.maps.event.addListener(map, 'idle', function() {
     // FILTER PROPERTY BASED ON MAP BOUND
@@ -285,22 +259,107 @@ function initData(data) {
       }
   }
   // Get price range
-  const lowerInput = document.querySelector("#lower");
-  const upperInput = document.querySelector("#upper");
-  const InputOne = document.querySelector("#one");
-  const InputTwo = document.querySelector("#two");
+  var lower = document.createElement("input"),
+      upper = document.createElement("input"),
+      min = document.createElement("input"),
+      max = document.createElement("input"),
+      lowerLbl = document.createElement("span"),
+      upperLbl = document.createElement("span"),
+      slideTrackwrap = document.createElement("div")
+      lower.setAttribute("id","lower")
+      lowerLbl.setAttribute("id","fromprice")
+      upper.setAttribute("id","upper")
+      upperLbl.setAttribute("id","toprice")
+      lower.setAttribute("type","range")
+      upper.setAttribute("type","range")
+      min.setAttribute("id","min")
+      max.setAttribute("id","max")
+      slideTrackwrap.setAttribute("class","slide-track")
+
+  const propList = document.querySelectorAll('.prop-list-wrap');
+  const priceRange = document.querySelector('.price-field');
+  const priceinput = document.querySelector('.price-wrap');
   const minPrice = Math.min(...markers.map(item => item.price));
   const maxPrice = Math.max(...markers.map(item => item.price));
-  if(lowerInput && upperInput && InputOne && InputTwo) {
-    lowerInput.setAttribute("min",minPrice);
-    lowerInput.setAttribute("max",maxPrice);
-    lowerInput.value = minPrice;
-    InputOne.value = minPrice;
-    upperInput.setAttribute("min",minPrice);
-    upperInput.setAttribute("max",maxPrice);
-    upperInput.value = maxPrice;
-    InputTwo.value = maxPrice;
+  
+
+  function fillSlider(from, to, sliderColor, rangeColor, controlSlider) {
+    const rangeDistance = to.max-to.min;
+    const fromPosition = from.value - to.min;
+    const toPosition = to.value - to.min;
+    lowerLbl.style.left = `${((fromPosition)/(rangeDistance))*100}%`
+    upperLbl.style.left = `${((toPosition)/(rangeDistance))*100}%`
+    controlSlider.style.background = `linear-gradient(
+      to right,
+      ${sliderColor} 0%,
+      ${sliderColor} ${(fromPosition)/(rangeDistance)*100}%,
+      ${rangeColor} ${((fromPosition)/(rangeDistance))*100}%,
+      ${rangeColor} ${(toPosition)/(rangeDistance)*100}%, 
+      ${sliderColor} ${(toPosition)/(rangeDistance)*100}%, 
+      ${sliderColor} 100%)`;
   }
+  function controlFromSlider(fromSlider, toSlider) {
+    const [from, to] = getParsed(fromSlider, toSlider);
+    fillSlider(fromSlider, toSlider, '#ffffff00', '#5A84C0', toSlider);
+    if (from > to) {
+      fromSlider.value = to;
+    }
+  }
+  function getParsed(currentFrom, currentTo) {
+    const from = parseInt(currentFrom.value, 10);
+    const to = parseInt(currentTo.value, 10);
+    return [from, to];
+  }
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
+  lowerLbl.textContent = formatter.format(minPrice)
+  upperLbl.textContent = formatter.format(maxPrice)
+
+  Object.assign(lower, {
+    id: 'lower',
+    type: 'range',
+    min: minPrice,
+    max: maxPrice,
+    value: minPrice,
+    onchange: function () {
+      dataFilter(this.value, upper.value, propList);
+      filterMarker(this.value, upper.value);
+    },
+    oninput: function() {
+      controlFromSlider(this, upper)
+      lowerLbl.textContent = formatter.format(this.value)
+    }
+  })
+  Object.assign(upper, {
+    id: 'upper',
+    type: 'range',
+    min: minPrice,
+    max: maxPrice,
+    value: maxPrice,
+    onchange: function () {
+      dataFilter(lower.value, this.value, propList);
+      filterMarker(lower.value, this.value);
+    },
+    oninput: function() {
+      controlFromSlider(lower, this)
+      upperLbl.textContent = formatter.format(this.value)
+    }
+  })
+  Object.assign(min, {
+    id: 'min',
+    type: 'number'
+  })
+  Object.assign(max, {
+    id: 'max',
+    type: 'number'
+  })
+
+  priceRange.append(lower, upper, lowerLbl, upperLbl, slideTrackwrap)
+  priceinput.appendChild(min)
+  priceinput.appendChild(max)
 
   // add Neighborhood filter based on data
   targetFilterCity?.appendChild(select);
@@ -316,6 +375,7 @@ function initData(data) {
   map.fitBounds(latlngbounds);
   var zoom = map.getZoom();
   map.setZoom(zoom > 12 ? 12 : zoom);
+  
 }
 
 const neighborhoodFilter = (getNeighborhoodAttr, neighborhoodSelected) => {
@@ -342,19 +402,18 @@ const typeFilter = (getTypeAttr, typeSelected) => {
   return false;
 }
 
-function dataFilter(neighborhoodSelected, lowPriceSelected, highPriceSelected, propList, typeSelected) {
+function dataFilter(lowPriceSelected, highPriceSelected, propList) {
     if (propList) {
         for (let i = 0; i < propList.length; i++) {
-            const getNeighborhoodAttr = propList[i].getAttribute("neighborhood");
+            //const getNeighborhoodAttr = propList[i].getAttribute("neighborhood");
+            //const getTypeAttr = propList[i].getAttribute("type");
             const getPriceAttr = propList[i].getAttribute("price");
-            const getTypeAttr = propList[i].getAttribute("type");
             const currentLatLang = JSON.parse(propList[i].getAttribute("latlang"));
             const mapBound = map.getBounds().contains(currentLatLang);
-            const zoomLevel = map.getZoom();
               if (
-                neighborhoodFilter(getNeighborhoodAttr, neighborhoodSelected) && 
-                priceFilter(getPriceAttr, lowPriceSelected, highPriceSelected) &&
-                typeFilter(getTypeAttr, typeSelected)
+                //neighborhoodFilter(getNeighborhoodAttr, neighborhoodSelected) && 
+                //typeFilter(getTypeAttr, typeSelected) &&
+                priceFilter(getPriceAttr, lowPriceSelected, highPriceSelected)
                 ) {
                   if( mapBound ) {
                     propList[i].style.display = "block";
@@ -454,17 +513,17 @@ function addMarker( markerData, infoWindow ) {
 }
 
 // Filter markers at map
-function filterMarker(neighborhoodSelected, lowPriceSelected, highPriceSelected, typeSelected) {
+function filterMarker(lowPriceSelected, highPriceSelected) {
   //let latlngbounds = new google.maps.LatLngBounds();
   for (let i = 0; i < markers.length; i++) {
-    const getNeighborhoodAttr = markers[i].neighborhood;
+    //const getNeighborhoodAttr = markers[i].neighborhood;
+    //const getTypeAttr = markers[i].type;
     const getPriceAttr = markers[i].price;
-    const getTypeAttr = markers[i].type;
     const zoomLevel = map.getZoom();
     if (
-      neighborhoodFilter(getNeighborhoodAttr, neighborhoodSelected) && 
-      priceFilter(getPriceAttr, lowPriceSelected, highPriceSelected) &&
-      typeFilter(getTypeAttr, typeSelected)
+      //neighborhoodFilter(getNeighborhoodAttr, neighborhoodSelected) && 
+      //typeFilter(getTypeAttr, typeSelected) &&
+      priceFilter(getPriceAttr, lowPriceSelected, highPriceSelected)
       ) {
         if(zoomLevel >= splitMarkerZoom)
         markers[i].setVisible(true);
