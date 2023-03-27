@@ -232,7 +232,7 @@ function initData(data) {
           wraper.setAttribute("type", type);
         }
 
-        const imgListInfo = markerData.img ? 'data:image/png;base64, ' + markerData.img : './no-image.png'
+        const imgListInfo = markerData.img ? 'data:image/png;base64, ' + markerData.img : staticImgUrl+'no-image.png'
         const propertyType = markerData.type == "TH" ? "Townhouse" : "Single Family Residence"
         const formatter = new Intl.NumberFormat('en-US', {
           style: 'currency',
@@ -528,7 +528,7 @@ function addMarker( markerData, infoWindow ) {
     },
   });
 
-  const imgListInfo = markerData.img ? 'data:image/png;base64, ' + markerData.img : './no-image.png'
+  const imgListInfo = markerData.img ? 'data:image/png;base64, ' + markerData.img : staticImgUrl+'no-image.png'
   const contentString =
     '<div id="content" class="marker-info">' +
     `<h2 class="firstHeading">${markerData.address}, ${markerData.state} ${markerData.postalCode}</h1>` +
