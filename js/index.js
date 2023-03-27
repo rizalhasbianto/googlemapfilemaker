@@ -240,6 +240,7 @@ function initData(data) {
         const formatter = new Intl.NumberFormat('en-US', {
           style: 'currency',
           currency: 'USD',
+          minimumFractionDigits: 0
         });
 
         wraper.innerHTML = `
@@ -313,6 +314,7 @@ function initData(data) {
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
+    minimumFractionDigits: 0
   });
 
   lowerLbl.textContent = formatter.format(minPrice)
