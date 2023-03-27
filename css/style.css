@@ -106,15 +106,7 @@ p {
 .prop-item {
   display: flex;
 }
-.filter--wrapper {
-  display: flex;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  width: 100%;
-  background: #fff;
-  padding: 30px 0;
-}
+
 /* 
  * Optional: Makes the sample page fill the window. 
  */
