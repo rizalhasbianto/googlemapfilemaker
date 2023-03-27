@@ -32,9 +32,6 @@ fetch(url, {
   initData(data);
   // filter function
   const propList = document.querySelectorAll('.prop-list-wrap');
-
-
-
   google.maps.event.addListener(map, 'idle', function() {
     // FILTER PROPERTY BASED ON MAP BOUND
     for (let i = 0; i < propList.length; i++) {
@@ -256,6 +253,16 @@ function initData(data) {
           </div>
         </a>
         `;
+
+        wraper.onmouseover = function() {
+          console.log("hover "+i)
+          markers[i].setIcon(staticImgUrl+"property-marker-black.png");
+          markers[i].setAnimation(google.maps.Animation.BOUNCE)
+        }
+        wraper.onmouseleave = function() {
+          markers[i].setIcon(staticImgUrl+"property-marker.png");
+          markers[i].setAnimation(null);
+        }
         target.appendChild(wraper);
       }
   }
@@ -307,6 +314,7 @@ function initData(data) {
     }
   }
   function getParsed(currentFrom, currentTo) {
+    console.log(currentFrom.value+" "+currentTo.value)
     const from = parseInt(currentFrom.value, 10);
     const to = parseInt(currentTo.value, 10);
     return [from, to];
@@ -352,11 +360,47 @@ function initData(data) {
   })
   Object.assign(min, {
     id: 'min',
-    type: 'number'
+    type: '',
+    inputMode:'decimal',
+    placeholder: 'minimum',
+    onfocus: function() {
+      this.type='number';
+      this.value=this.lastValue;
+    },
+    onblur: function() {
+      this.type=''; 
+      this.lastValue=this.value; 
+      this.value= this.value==''?'': formatter.format(this.value)
+    },
+    onchange: function () {
+      lower.value = this.value
+      controlFromSlider(lower, upper)
+      lowerLbl.textContent = formatter.format(this.value)
+      dataFilter(this.value, upper.value, propList);
+      filterMarker(this.value, upper.value);
+    },
   })
   Object.assign(max, {
     id: 'max',
-    type: 'number'
+    type: '',
+    inputMode:'decimal',
+    placeholder: 'maximum',
+    onfocus: function() {
+      this.type='number';
+      this.value=this.lastValue;
+    },
+    onblur: function() {
+      this.type=''; 
+      this.lastValue=this.value; 
+      this.value= this.value==''?'': formatter.format(this.value)
+    },
+    onchange: function () {
+      upper.value = this.value
+      controlFromSlider(lower, upper)
+      upperLbl.textContent = formatter.format(this.value)
+      dataFilter(lower.value, this.value, propList);
+      filterMarker(lower.value, this.value);
+    },
   })
 
   priceRange.append(lower, upper, lowerLbl, upperLbl, slideTrackwrap)
