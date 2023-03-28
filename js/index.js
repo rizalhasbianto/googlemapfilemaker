@@ -423,13 +423,12 @@ function initData(data) {
   // BUILD SCROLLBAR
   const scrollbarWraper = document.querySelector(".scroll-fake");
   const filterElement = document.querySelector(".filter-price-wrap");
-  const propertiesWraper = document.querySelector(".info")
-  var scrollbar = document.createElement("input")
+  const propertiesWraper = document.querySelector(".info");
+  var scrollbar = document.createElement("input");
   const scrollinnerHeight = target.scrollHeight;
   const propertiesWraperHeight = propertiesWraper.clientHeight;
   const filterheight = filterElement.clientHeight;
   const totalscroll = (scrollinnerHeight-propertiesWraperHeight)+filterheight;
-  scrollbar.style.width = propertiesWraperHeight;
   console.log(scrollinnerHeight+" "+propertiesWraperHeight+" "+filterheight);
   Object.assign(scrollbar, {
     id: 'scrollbar-miror',
@@ -437,6 +436,7 @@ function initData(data) {
     type: 'range',
     min: 0,
     max:totalscroll,
+    style:`width:${propertiesWraperHeight}px;`,
     oninput: function () {
       propertiesWraper.scrollTop = this.value
     },
