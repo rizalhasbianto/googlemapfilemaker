@@ -74,7 +74,7 @@ function initData(data) {
     const elementName = propertyData[i].getAttribute("name");
     const className = elementName.replace("::","")
     const dataValue = propertyData[i]?.textContent
-    const elementTarget = document.querySelector(`.${className}`)
+    const elementTarget = document.querySelector(`.${className.toLowerCase()}`)
     if(elementTarget) {
       if( className == "z_WebPrice") {
         const formatter = new Intl.NumberFormat('en-US', {
