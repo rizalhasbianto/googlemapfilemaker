@@ -426,10 +426,11 @@ function initData(data) {
   const propertiesWraper = document.querySelector(".info")
   var scrollbar = document.createElement("input")
   const scrollinnerHeight = target.scrollHeight;
-  const propertiesWraperHeight = propertiesWraper.clientHeight
-  const filterheight = filterElement.clientHeight
-  const totalscroll = (scrollinnerHeight-propertiesWraperHeight)+filterheight
-  scrollbar.style.width = propertiesWraperHeight
+  const propertiesWraperHeight = propertiesWraper.clientHeight;
+  const filterheight = filterElement.clientHeight;
+  const totalscroll = (scrollinnerHeight-propertiesWraperHeight)+filterheight;
+  scrollbar.style.width = propertiesWraperHeight;
+  console.log(scrollinnerHeight+" "+propertiesWraperHeight+" "+filterheight);
   Object.assign(scrollbar, {
     id: 'scrollbar-miror',
     className: "scrollbar",
