@@ -255,7 +255,6 @@ function initData(data) {
         `;
 
         wraper.onmouseover = function() {
-          console.log("hover "+i)
           markers[i].setIcon(staticImgUrl+"property-marker-black.png");
           markers[i].setAnimation(google.maps.Animation.BOUNCE)
         }
@@ -314,7 +313,6 @@ function initData(data) {
     }
   }
   function getParsed(currentFrom, currentTo) {
-    console.log(currentFrom.value+" "+currentTo.value)
     const from = parseInt(currentFrom.value, 10);
     const to = parseInt(currentTo.value, 10);
     return [from, to];
@@ -421,6 +419,31 @@ function initData(data) {
   map.fitBounds(latlngbounds);
   var zoom = map.getZoom();
   map.setZoom(zoom > 12 ? 12 : zoom);
+
+  // BUILD SCROLLBAR
+  const scrollbarWraper = document.querySelector(".scroll-fake");
+  const filterElement = document.querySelector(".filter-price-wrap");
+  const propertiesWraper = document.querySelector(".info")
+  var scrollbar = document.createElement("input")
+  const scrollinnerHeight = target.scrollHeight;
+  const propertiesWraperHeight = propertiesWraper.clientHeight
+  const filterheight = filterElement.clientHeight
+  const totalscroll = (scrollinnerHeight-propertiesWraperHeight)+filterheight
+  scrollbar.style.width = propertiesWraperHeight
+  Object.assign(scrollbar, {
+    id: 'scrollbar-miror',
+    className: "scrollbar",
+    type: 'range',
+    min: 0,
+    max:totalscroll,
+    oninput: function () {
+      propertiesWraper.scrollTop = this.value
+    },
+  })
+  scrollbarWraper.appendChild(scrollbar)
+  propertiesWraper.addEventListener("scroll", function() {
+    scrollbar.value = this.scrollTop
+  });
   
 }
 
