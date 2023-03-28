@@ -44,6 +44,7 @@ fetch(url, {
         propList[i].style.display = "none";
       }
     }
+    scrollbarChange();
   });
 
   google.maps.event.addListener(map, 'zoom_changed', function() {
@@ -152,6 +153,19 @@ fetch(url, {
     });
   }
 });
+
+// SCROLLBAR change function
+function scrollbarChange() {
+      const target = document.querySelector('.properties');
+      const filterElement = document.querySelector(".filter--wrapper");
+      const propertiesWraper = document.querySelector(".info");
+      const scrollbarInput = document.querySelector('.scrollbar')
+      const scrollinnerHeight = target.scrollHeight;
+      const propertiesWraperHeight = propertiesWraper.clientHeight;
+      const filterheight = filterElement.clientHeight;
+      const totalscroll = (scrollinnerHeight-propertiesWraperHeight)+filterheight;
+      scrollbarInput.setAttribute("max",totalscroll)
+}
 
 // SHOWING PROPERTIES AND ADD MARKER TO MAP
 function initData(data) {
@@ -335,6 +349,7 @@ function initData(data) {
     onchange: function () {
       dataFilter(this.value, upper.value, propList);
       filterMarker(this.value, upper.value);
+      scrollbarChange();
     },
     oninput: function() {
       controlFromSlider(this, upper)
@@ -350,6 +365,7 @@ function initData(data) {
     onchange: function () {
       dataFilter(lower.value, this.value, propList);
       filterMarker(lower.value, this.value);
+      scrollbarChange();
     },
     oninput: function() {
       controlFromSlider(lower, this)
