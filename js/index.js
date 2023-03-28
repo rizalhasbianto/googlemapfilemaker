@@ -255,7 +255,7 @@ function initData(data) {
         });
 
         wraper.innerHTML = `
-        <a href="./single-property.html?recId=${markerData.recId}" class="single-property-link">
+        <a href="./single-property?recId=${markerData.recId}" class="single-property-link" target="_blank">
           <div class="img-wrap">
             <img src="${imgListInfo}">
           </div>
@@ -576,12 +576,12 @@ function addMarker( markerData, infoWindow ) {
     "<p> " +
     `<span>${markerData.bedrooms}, ${markerData.bathrooms}</span><br/>` +
     `<span>${markerData.address}</span><br/>` +
-    `<span>${markerData.type}</span><br/>` +
+    `<span>${markerData.type}</span><br/>` +  
     `<span>${markerData.status}</span><br/>` +
     "</p>" +
     `<img src='${imgListInfo}' />` +
     "</div>" +
-    '<p><a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
+    `<p><a href="./single-property?recId=${markerData.recId}" target="_blank">` +
     "Details...</a></p>" +
     "</div>" +
     "</div>";
