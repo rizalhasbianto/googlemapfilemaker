@@ -63,6 +63,7 @@ function loadImgdata(dataProperties) {
     const imgElement = document.querySelector(".main-img img")
     const imgData = dataVendor[0]?.children[11]?.textContent
     imgElement.setAttribute("src", `data:image/png;base64, ${imgData}`)
+    imgElement.removeAttribute("srcset")
   })
 }
 
