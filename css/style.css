@@ -56,10 +56,45 @@ p {
   padding: 0 50px;
   width: 50%;
   height: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
+  position: relative;
 }
 .info::-webkit-scrollbar {
+  background-color: transparent;
+  width: 20px;
   display: none;
+}
+.info::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+.filter--wrapper {
+  position: sticky;
+    top: 0;
+}
+.scroll-fake {
+  position: fixed;
+  right: -350px;
+  top: 350px;
+}
+.scrollbar {
+  transform: rotate(90deg);
+}
+.scroll-fake input[type="range"] {
+  -webkit-appearance: none;
+  height: 2px;
+  background: #585858;
+}
+.scroll-fake input[type="range"]::-webkit-scrollbar-track {
+  background: #585858;
+  height: 2px;
+}
+.scroll-fake input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background-color: #fff;
+  border: 1px solid #000;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
 }
 .properties {
   display: flex;
@@ -223,7 +258,7 @@ PRICE FILTER
 
 /* Reset style for input range */
 
-input[type=range]::-webkit-slider-thumb {
+.price-field input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   pointer-events: all;
   width: 2px;
@@ -234,7 +269,7 @@ input[type=range]::-webkit-slider-thumb {
   top:-4px
 }
 
-input[type=range]::-moz-range-thumb {
+.price-field input[type="range"]::-moz-range-thumb {
   -webkit-appearance: none;
   pointer-events: all;
   width: 2px;
@@ -245,11 +280,11 @@ input[type=range]::-moz-range-thumb {
   top:-4px
 }
 
-input[type=range]::-webkit-slider-thumb:hover {
+.price-field input[type="range"]::-webkit-slider-thumb:hover {
   background: #f7f7f7;
 }
 
-input[type=range]::-webkit-slider-thumb:active {
+.price-field input[type="range"]::-webkit-slider-thumb:active {
   box-shadow: inset 0 0 3px #387bbe, 0 0 9px #387bbe;
   -webkit-box-shadow: inset 0 0 3px #387bbe, 0 0 9px #387bbe;
 }
@@ -267,7 +302,7 @@ input[type=number]::-webkit-outer-spin-button {
    opacity: 1;
 }
 
-input[type="range"] {
+.price-field input[type="range"] {
   -webkit-appearance: none; 
   appearance: none;
   height: 20px;
@@ -361,11 +396,11 @@ input[type="range"] {
 
 /* Style for active state input */
     
-.price-field input[type=range]:hover::-webkit-slider-thumb {
+.price-field .price-field input[type="range"]:hover::-webkit-slider-thumb {
   transition-duration: 0.3s;
 }
 
-.price-field input[type=range]:active::-webkit-slider-thumb {
+.price-field .price-field input[type="range"]:active::-webkit-slider-thumb {
   transition-duration: 0.3s;
 }
 
