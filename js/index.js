@@ -142,16 +142,16 @@ fetch(url, {
   });
 
   // Single property link function
-  const singleProLink = document.querySelectorAll('.single-property-link');
+  //const singleProLink = document.querySelectorAll('.single-property-link');
 
-  for (let i = 0; i < singleProLink.length; i++) {
-    singleProLink[i].addEventListener("click", function(event){
-      event.preventDefault();
-      const price = this.querySelector(".price").textContent;
-      sessionStorage.setItem("price", price);
-      window.open('./single-property.html', '_blank');
-    });
-  }
+  //for (let i = 0; i < singleProLink.length; i++) {
+  //  singleProLink[i].addEventListener("click", function(event){
+  //    event.preventDefault();
+  //    const price = this.querySelector(".price").textContent;
+  //    sessionStorage.setItem("price", price);
+  //    window.open('./single-property.html', '_blank');
+  //  });
+  //}
 });
 
 // SCROLLBAR change function
