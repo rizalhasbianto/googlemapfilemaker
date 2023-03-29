@@ -57,7 +57,7 @@ fetch(url, {
             max = document.querySelector("#max"),
             lowerLbl = document.querySelector("#fromprice"),
             upperLbl = document.querySelector("#toprice"),
-            searchArea = upper.getAttribute("searcharea"),
+            searchArea = document.querySelector("#searcharea"),
             maxPrice = upper.getAttribute("max")
 
             lower.value = 0;
