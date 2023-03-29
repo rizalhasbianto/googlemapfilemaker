@@ -47,6 +47,37 @@ fetch(url, {
     scrollbarChange();
   });
 
+  // reset function
+  const resetField = document.querySelector(".reset-wrap")
+  if(resetField) {
+    resetField.onclick = function () {
+      const lower = document.querySelector("#lower"),
+            upper = document.querySelector("#upper"),
+            min = document.querySelector("#min"),
+            max = document.querySelector("#max"),
+            lowerLbl = document.querySelector("#fromprice"),
+            upperLbl = document.querySelector("#toprice"),
+            searchArea = upper.getAttribute("searcharea"),
+            maxPrice = upper.getAttribute("max")
+
+            lower.value = 0;
+            upper.value = maxPrice;
+            lowerLbl.textContent = formatter.format(0);
+            upperLbl.textContent = formatter.format(maxPrice);
+            min.value = "";
+            min.lastValue = "";
+            max.value = "";
+            max.lastValue = "";
+            searchArea.value = "";
+      
+      controlFromSlider(lower, upper, lowerLbl, upperLbl);
+      zoomFitMarkers();
+      dataFilter(lower.value, upper.value, propList);
+      filterMarker(lower.value, upper.value);
+      scrollbarChange();
+    }
+  }
+
   google.maps.event.addListener(map, 'zoom_changed', function() {
     // FILTER MARKER BASED ON ZOOM
     const zoomLevel = map.getZoom();
@@ -69,14 +100,6 @@ fetch(url, {
       })
     }
   });
-
-  // Search function
-  const searchInput = document.querySelector('.map-search');
-  if(searchInput) {
-    searchInput.oninput = function () {
-      searchAddress(searchInput.value)
-    }
-  }
 
   // Sort Function
   const sortSelect = document.querySelector('.map-sort');
@@ -287,14 +310,8 @@ function initData(data) {
       lowerLbl = document.createElement("span"),
       upperLbl = document.createElement("span"),
       slideTrackwrap = document.createElement("div")
-      lower.setAttribute("id","lower")
       lowerLbl.setAttribute("id","fromprice")
-      upper.setAttribute("id","upper")
       upperLbl.setAttribute("id","toprice")
-      lower.setAttribute("type","range")
-      upper.setAttribute("type","range")
-      min.setAttribute("id","min")
-      max.setAttribute("id","max")
       slideTrackwrap.setAttribute("class","slide-track")
 
   const propList = document.querySelectorAll('.prop-list-wrap');
@@ -302,40 +319,6 @@ function initData(data) {
   const priceinput = document.querySelector('.price-wrap');
   const minPrice = Math.min(...markers.map(item => item.price));
   const maxPrice = Math.max(...markers.map(item => item.price));
-  
-
-  function fillSlider(from, to, sliderColor, rangeColor, controlSlider) {
-    const rangeDistance = to.max-to.min;
-    const fromPosition = from.value - to.min;
-    const toPosition = to.value - to.min;
-    lowerLbl.style.left = `${((fromPosition)/(rangeDistance))*100}%`
-    upperLbl.style.left = `${((toPosition)/(rangeDistance))*100}%`
-    controlSlider.style.background = `linear-gradient(
-      to right,
-      ${sliderColor} 0%,
-      ${sliderColor} ${(fromPosition)/(rangeDistance)*100}%,
-      ${rangeColor} ${((fromPosition)/(rangeDistance))*100}%,
-      ${rangeColor} ${(toPosition)/(rangeDistance)*100}%, 
-      ${sliderColor} ${(toPosition)/(rangeDistance)*100}%, 
-      ${sliderColor} 100%)`;
-  }
-  function controlFromSlider(fromSlider, toSlider) {
-    const [from, to] = getParsed(fromSlider, toSlider);
-    fillSlider(fromSlider, toSlider, '#ffffff00', '#5A84C0', toSlider);
-    if (from > to) {
-      fromSlider.value = to;
-    }
-  }
-  function getParsed(currentFrom, currentTo) {
-    const from = parseInt(currentFrom.value, 10);
-    const to = parseInt(currentTo.value, 10);
-    return [from, to];
-  }
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0
-  });
 
   lowerLbl.textContent = formatter.format(minPrice)
   upperLbl.textContent = formatter.format(maxPrice)
@@ -352,7 +335,7 @@ function initData(data) {
       scrollbarChange();
     },
     oninput: function() {
-      controlFromSlider(this, upper)
+      controlFromSlider(this, upper, lowerLbl, upperLbl)
       lowerLbl.textContent = formatter.format(this.value)
     }
   })
@@ -368,7 +351,7 @@ function initData(data) {
       scrollbarChange();
     },
     oninput: function() {
-      controlFromSlider(lower, this)
+      controlFromSlider(lower, this, lowerLbl, upperLbl)
       upperLbl.textContent = formatter.format(this.value)
     }
   })
@@ -388,7 +371,7 @@ function initData(data) {
     },
     onchange: function () {
       lower.value = this.value
-      controlFromSlider(lower, upper)
+      controlFromSlider(lower, upper, lowerLbl, upperLbl)
       lowerLbl.textContent = formatter.format(this.value)
       dataFilter(this.value, upper.value, propList);
       filterMarker(this.value, upper.value);
@@ -410,7 +393,7 @@ function initData(data) {
     },
     onchange: function () {
       upper.value = this.value
-      controlFromSlider(lower, upper)
+      controlFromSlider(lower, upper, lowerLbl, upperLbl)
       upperLbl.textContent = formatter.format(this.value)
       dataFilter(lower.value, this.value, propList);
       filterMarker(lower.value, this.value);
@@ -428,13 +411,7 @@ function initData(data) {
   addNeighborhoodMarker(neighborhoodList)
   
   // ZOOM Fit to markers
-  let latlngbounds = new google.maps.LatLngBounds();
-  for (let i = 0; i < markers.length; i++) {
-    latlngbounds.extend(markers[i].position);
-  }
-  map.fitBounds(latlngbounds);
-  var zoom = map.getZoom();
-  map.setZoom(zoom > 12 ? 12 : zoom);
+  zoomFitMarkers();
 
   // BUILD SCROLLBAR
   const scrollbarWraper = document.querySelector(".scroll-fake");
@@ -461,6 +438,66 @@ function initData(data) {
     scrollbar.value = this.scrollTop
   });
   
+  // Search function
+  const searchField = document.querySelector('.search-field');
+  var searchInput = document.createElement("input");
+  Object.assign(searchInput, {
+    id: 'searcharea',
+    className: "search-area",
+    type: 'text',
+    style:`width:${propertiesWraperHeight-filterheight}px;`,
+    oninput: function () {
+      searchAddress(this.value)
+    },
+  })
+  searchField.appendChild(searchInput)
+}
+
+// price slide fill with bg
+function fillSlider(from, to, sliderColor, rangeColor, controlSlider, lowerLbl, upperLbl) {
+  const rangeDistance = to.max-to.min;
+  const fromPosition = from.value - to.min;
+  const toPosition = to.value - to.min;
+  lowerLbl.style.left = `${((fromPosition)/(rangeDistance))*100}%`
+  upperLbl.style.left = `${((toPosition)/(rangeDistance))*100}%`
+  controlSlider.style.background = `linear-gradient(
+    to right,
+    ${sliderColor} 0%,
+    ${sliderColor} ${(fromPosition)/(rangeDistance)*100}%,
+    ${rangeColor} ${((fromPosition)/(rangeDistance))*100}%,
+    ${rangeColor} ${(toPosition)/(rangeDistance)*100}%, 
+    ${sliderColor} ${(toPosition)/(rangeDistance)*100}%, 
+    ${sliderColor} 100%)`;
+}
+function controlFromSlider(lower, upper, lowerLbl, upperLbl) {
+  const [from, to] = getParsed(lower, upper);
+  fillSlider(lower, upper, '#ffffff00', '#5A84C0', upper, lowerLbl, upperLbl);
+  if (from > to) {
+    lower.value = to;
+  }
+}
+function getParsed(currentFrom, currentTo) {
+  const from = parseInt(currentFrom.value, 10);
+  const to = parseInt(currentTo.value, 10);
+  return [from, to];
+}
+
+// format text to money
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 0
+});
+
+// zoom fit marker function
+function zoomFitMarkers() {
+  let latlngbounds = new google.maps.LatLngBounds();
+  for (let i = 0; i < markers.length; i++) {
+    latlngbounds.extend(markers[i].position);
+  }
+  map.fitBounds(latlngbounds);
+  var zoom = map.getZoom();
+  map.setZoom(zoom > 12 ? 12 : zoom);
 }
 
 const neighborhoodFilter = (getNeighborhoodAttr, neighborhoodSelected) => {
@@ -537,6 +574,8 @@ async function addNeighborhoodMarker( neighborhoodList ) {
 async function searchAddress( address ) {
   const findAddressGeo = await getAddressLatLang(address)
   map.fitBounds(findAddressGeo.bounds);
+  var zoom = map.getZoom();
+  map.setZoom(zoom < 13 ? 13 : zoom);
 }
 
 // find bound of area
