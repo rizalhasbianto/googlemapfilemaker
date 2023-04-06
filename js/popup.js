@@ -3,9 +3,6 @@ window.onload = function(){
      const bodyElement = document.querySelector('body')
      const parentElement = document.querySelector('.product__info-container--sticky')
      const parentElement2 = document.querySelector('.product__media-gallery')
-     const button = document.createElement('p');
-     button.classList = "shipping__button"
-     button.textContent = "Shipping - Please Read Before Purchase"
      
      const popUp = document.createElement('div');
      const iframeUrl = 'https://main.d10gukamd0d34o.amplifyapp.com/'
@@ -14,7 +11,7 @@ window.onload = function(){
 
      const styleNode = document.createElement('style');
           styleNode.type = "text/css";
-         const styleShipping = '.product__info-container--sticky.showing, .product--stacked .product__info-container--sticky.showing, .product--columns .product__info-container--sticky.showing{z-index:99 !important}.shipping__button{text-decoration:underline;}.close_popup svg{color:rgba(018,018,018,0.75);width:17px;display:block;position:relative;top:53%;left:50%;transform:translate(-50%,-50%)}.popup_content{position:relative;left:50%;transform:translate(-50%,-50%)}.popup_content{width:70%;height:80vh;border:none;top:50%}.popup_content iframe{width:100%;height:100%;border:none}.close_popup{position:absolute;top:15px;right:25px;width:30px;height:30px;border:1px solid #8b8b8b;border-radius:50%}.close svg{width:17px;display:block;top:53%}.popup_shipping{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:#0000005e;z-index:9}@media only screen and (max-width:600px){.popup_content{width:90%}}'
+         const styleShipping = '.product__info-container--sticky.showing, .product--stacked .product__info-container--sticky.showing, .product--columns .product__info-container--sticky.showing{z-index:99 !important}.shipping__button{text-decoration:underline;}.close_popup svg{color:rgba(018,018,018,0.75);width:17px;display:block;position:relative;top:53%;left:50%;transform:translate(-50%,-50%)}.popup_content{position:relative;left:50%;transform:translate(-50%,-50%)}.popup_content{width:70%;height:80vh;border:none;top:50%}.popup_content iframe{width:100%;height:100%;border:none}.close_popup{position:absolute;top:15px;right:25px;width:30px;height:30px;border:1px solid #8b8b8b;border-radius:50%}.close svg{width:17px;display:block;top:53%}.popup_shipping{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:#0000005e;z-index:99999}@media only screen and (max-width:600px){.popup_content{width:90%}}'
           if(!!(window.attachEvent && !window.opera)) {
                styleNode.styleSheet.cssText = styleShipping;
           } else {
@@ -24,9 +21,13 @@ window.onload = function(){
 
      document.getElementsByTagName('head')[0].appendChild(styleNode);
 
-     for (let i = 0; i < targetElement.length; i++) {
-          targetElement[i].appendChild(button);
-     }
+     targetElement.forEach((element) => {
+          const button = document.createElement('p');
+          button.classList = "shipping__button"
+          button.textContent = "Shipping - Please Read Before Purchase"
+          button.addEventListener('click', showContent)
+          element.appendChild(button);
+     });
 
      bodyElement.appendChild(popUp);
 
@@ -67,6 +68,5 @@ window.onload = function(){
           document.documentElement.style.setProperty('--scroll-y', `${window.scrollY}px`);
         });
 
-     document.querySelector('.shipping__button').addEventListener('click', showContent)
      document.querySelector('.close_popup').addEventListener('click', hideContent)
    };
