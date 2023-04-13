@@ -322,7 +322,7 @@ function initData(data) {
   const priceinput = document.querySelector('.price-wrap');
   const minPrice = Math.min(...markers.map(item => item.price));
   const maxPrice = Math.max(...markers.map(item => item.price));
-
+console.log(priceRange)
   lowerLbl.textContent = formatter.format(minPrice)
   upperLbl.textContent = formatter.format(maxPrice)
 
