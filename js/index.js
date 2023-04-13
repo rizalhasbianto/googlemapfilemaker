@@ -32,20 +32,22 @@ fetch(url, {
   initData(data);
   // filter function
   const propList = document.querySelectorAll('.prop-list-wrap');
-  google.maps.event.addListener(map, 'idle', function() {
-    // FILTER PROPERTY BASED ON MAP BOUND
-    for (let i = 0; i < propList.length; i++) {
-      const currentLatLang = JSON.parse(propList[i].getAttribute("latlang"));
-      const filterStatus = propList[i].getAttribute("filter");
-      const mapBound = map.getBounds().contains(currentLatLang);
-      if(mapBound && filterStatus == "include") {
-        propList[i].style.display = "block";
-      } else {
-        propList[i].style.display = "none";
+  if(window.innerWidth > 600) {
+    google.maps.event.addListener(map, 'idle', function() {
+      // FILTER PROPERTY BASED ON MAP BOUND
+      for (let i = 0; i < propList.length; i++) {
+        const currentLatLang = JSON.parse(propList[i].getAttribute("latlang"));
+        const filterStatus = propList[i].getAttribute("filter");
+        const mapBound = map.getBounds().contains(currentLatLang);
+        if(mapBound && filterStatus == "include") {
+          propList[i].style.display = "block";
+        } else {
+          propList[i].style.display = "none";
+        }
       }
-    }
-    scrollbarChange();
-  });
+      scrollbarChange();
+    });
+  }
 
   // reset function
   const resetField = document.querySelector(".reset-wrap")
@@ -249,6 +251,7 @@ function initData(data) {
       if (address) {
         if (city) {
           wraper.setAttribute("neighborhood", neighborhood);
+          wraper.setAttribute("id", id);
           const availableCity = neighborhoodList.find(list => list.name == neighborhood);
             if (!availableCity) {
                 option.value = neighborhood;
@@ -403,6 +406,35 @@ function initData(data) {
   priceRange.append(lower, upper, lowerLbl, upperLbl, slideTrackwrap)
   priceinput.appendChild(min)
   priceinput.appendChild(max)
+
+  // Mobile price filter
+  const minimumPriceElement = document.querySelectorAll(".price-filter-list");
+  let minimumPriceMobile = 0,
+      maximumPriceMobile = maxPrice
+
+  for (let h = 0; h < minimumPriceElement.length; h++) {
+    for (let i = 0; i < 30; i++) {
+      const price = "$"+(i+1)*100+"k";
+      var optList = document.createElement("li");
+      optList.className = "list-price-item";
+      optList.textContent = price;
+      minimumPriceElement[h].appendChild(optList);
+    }
+    minimumPriceElement[h].onscroll = function(){
+      const scrollPos = this.scrollTop / 30
+      const validation = (scrollPos - Math.floor(scrollPos)) !== 0
+      if(!validation) {
+        if(h == 0) {
+          minimumPriceMobile = scrollPos * 100000
+        } else {
+          const priceVal = scrollPos == 0 ? maxPrice : scrollPos * 100000 ;
+          maximumPriceMobile = priceVal
+        }
+        dataFilter(minimumPriceMobile, maximumPriceMobile, propList);
+        filterMarker(minimumPriceMobile, maximumPriceMobile);
+      }
+    }
+  }
 
   // add Neighborhood filter based on data
   targetFilterCity?.appendChild(select);
@@ -600,6 +632,7 @@ function addMarker( markerData, infoWindow ) {
     neighborhood: markerData.neighborhood,
     price: markerData.price,
     type: markerData.type,
+    id: markerData.id,
     visible: false,
     icon: {
       url: staticImgUrl+"property-marker.png"
@@ -625,12 +658,25 @@ function addMarker( markerData, infoWindow ) {
     "</div>" +
     "</div>";
 
+
   marker.addListener("click", () => {
-    infoWindow.setContent(contentString)
-    infoWindow.open({
-      anchor: marker,
-      map,
-    });
+    if(window.innerWidth <= 600) {
+      const propList = document.querySelectorAll(".prop-list-wrap")
+      for (let i = 0; i < propList.length; i++) {
+        const listId = propList[i].getAttribute("id");
+        if(listId == marker.id) {
+          propList[i].style.display = "block";
+        } else {
+          propList[i].style.display = "none";
+        }
+      }
+    } else {
+      infoWindow.setContent(contentString)
+      infoWindow.open({
+        anchor: marker,
+        map,
+      });
+    }
   });
 
   markers.push(marker);
