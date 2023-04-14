@@ -295,11 +295,11 @@ function initData(data) {
         `;
 
         wraper.onmouseover = function() {
-          markers[i].setIcon(staticImgUrl+"property-marker-black.png");
+          //markers[i].setIcon(staticImgUrl+"property-marker-black.png");
           markers[i].setAnimation(google.maps.Animation.BOUNCE)
         }
         wraper.onmouseleave = function() {
-          markers[i].setIcon(staticImgUrl+"property-marker.png");
+          //markers[i].setIcon(staticImgUrl+"property-marker.png");
           markers[i].setAnimation(null);
         }
         target.appendChild(wraper);
@@ -322,7 +322,7 @@ function initData(data) {
   const priceinput = document.querySelector('.price-wrap');
   const minPrice = Math.min(...markers.map(item => item.price));
   const maxPrice = Math.max(...markers.map(item => item.price));
-console.log(priceRange)
+
   lowerLbl.textContent = formatter.format(minPrice)
   upperLbl.textContent = formatter.format(maxPrice)
 
@@ -661,13 +661,22 @@ function addMarker( markerData, infoWindow ) {
 
   marker.addListener("click", () => {
     if(window.innerWidth <= 600) {
-      const propList = document.querySelectorAll(".prop-list-wrap")
+      const propList = document.querySelectorAll(".prop-list-wrap");
+      const propertiesWraper = document.querySelector(".info");
       for (let i = 0; i < propList.length; i++) {
         const listId = propList[i].getAttribute("id");
         if(listId == marker.id) {
           propList[i].style.display = "block";
         } else {
           propList[i].style.display = "none";
+        }
+      }
+
+      for (let i = 0; i < markers.length; i++) {
+        marker.setAnimation(google.maps.Animation.BOUNCE)
+        propertiesWraper.classList.add("show")
+        if(markers[i] != marker) {
+          markers[i].setAnimation(null);
         }
       }
     } else {
