@@ -170,7 +170,7 @@ fetch(url, {
     singleProLink[i].addEventListener("click", function(event){
       event.preventDefault();
       sessionStorage.setItem("singleProperty", JSON.stringify(data[i]));
-      window.open('./single-property.html', '_blank');
+      window.open(`./single-property?recId=${i}`, '_blank');
     });
   }
 });
