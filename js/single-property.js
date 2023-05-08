@@ -20,8 +20,9 @@
     }
 
     // load img to html
-    const listingElement = document.querySelector('.main-img img');
-    listingElement.setAttribute("src", imgList)
+    const imgElement = document.querySelector('.main-img img');
+    imgElement.setAttribute("src", imgList);
+    imgElement.removeAttribute("srcset")
   })
 
 //Print data to html
