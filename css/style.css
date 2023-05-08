@@ -546,10 +546,10 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 50px;
     color: #585858;
   }
-  .property-detail .status {
+  .property-detail .status_wrap {
     color: #5A84C0;
   }
-  .property-detail .status .loansstatus {
+  .property-detail .status {
     color: #585858;
   }
   .address {
@@ -559,7 +559,7 @@ input[type=number]::-webkit-outer-spin-button {
   .address .address1 {
     font-weight: 700;
   }
-  .z_webprice {
+  .webprice {
     font-size: 48px;
     font-weight: 700;
   }
@@ -599,4 +599,23 @@ input[type=number]::-webkit-outer-spin-button {
   }
   .vendor-list:last-child {
     margin-bottom: 0;
+  }
+
+  .price-filter-list {
+    height: 150px;
+    overflow-y: scroll;
+    scroll-snap-type: mandatory;
+    scroll-snap-points-y: repeat(3rem);
+    scroll-snap-type: y mandatory;
+    padding-bottom: 150px;
+    box-sizing: border-box;
+  }
+  .price-filter-list li {
+  scroll-snap-align: start;
+  }
+  .price-filter-list::-webkit-scrollbar {
+      display: none;
+  }
+  .list-price-item {
+    line-height: 30px;
   }
