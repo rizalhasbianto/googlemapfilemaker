@@ -159,21 +159,20 @@ fetch(url, {
     }
     
     for (let i = 0; i < dataProperties.length; i++) {
-      data[key].parentNode.appendChild(data[key]);
+      data[i].parentNode.appendChild(data[i]);
     }
   });
 
   // Single property link function
-  //const singleProLink = document.querySelectorAll('.single-property-link');
+  const singleProLink = document.querySelectorAll('.single-property-link');
 
-  //for (let i = 0; i < singleProLink.length; i++) {
-  //  singleProLink[i].addEventListener("click", function(event){
-  //    event.preventDefault();
-  //    const price = this.querySelector(".price").textContent;
-  //    sessionStorage.setItem("price", price);
-  //    window.open('./single-property.html', '_blank');
-  //  });
-  //}
+  for (let i = 0; i < singleProLink.length; i++) {
+    singleProLink[i].addEventListener("click", function(event){
+      event.preventDefault();
+      sessionStorage.setItem("singleProperty", JSON.stringify(data[i]));
+      window.open('./single-property.html', '_blank');
+    });
+  }
 });
 
 // SCROLLBAR change function
@@ -203,21 +202,21 @@ function initData(data) {
   select.appendChild(firstOption);
   let infoWindow = new google.maps.InfoWindow();
 
-  for (const key in data) {
-      const id = data[key]?.id;
-      const recId = key;
-      const address = data[key]?.address1;
-      const city = data[key]?.city;
-      const state = data[key]?.state;
-      const postalCode = data[key]?.postalCode;
-      const neighborhood = data[key]?.neighborhood;
-      const bathrooms = data[key]?.bathrooms;
-      const bedrooms = data[key]?.bedrooms;
-      const type = data[key]?.type;
-      const status = data[key]?.status;
-      const price = Number(data[key]?.webprice);
-      const img = data[key]?.imagebase64;
-      const locationData = data[key]?.geolocation.split(",");
+  for (let i = 0; i < data.length; i++) {
+      const id = data[i]?.id;
+      const recId = i;
+      const address = data[i]?.address1;
+      const city = data[i]?.city;
+      const state = data[i]?.state;
+      const postalCode = data[i]?.postalCode;
+      const neighborhood = data[i]?.neighborhood;
+      const bathrooms = data[i]?.bathrooms;
+      const bedrooms = data[i]?.bedrooms;
+      const type = data[i]?.type;
+      const status = data[i]?.status;
+      const price = Number(data[i]?.webprice);
+      const img = data[i]?.imagebase64;
+      const locationData = data[i]?.geolocation.split(",");
 
       const markerData = {
         position: { lat: Number(locationData[0]), lng: Number(locationData[1]) }, 
@@ -290,12 +289,12 @@ function initData(data) {
         `;
 
         wraper.onmouseover = function() {
-          markers[key].setIcon(staticImgUrl+"property-marker-black.png");
-          markers[key].setAnimation(google.maps.Animation.BOUNCE)
+          markers[i].setIcon(staticImgUrl+"property-marker-black.png");
+          markers[i].setAnimation(google.maps.Animation.BOUNCE)
         }
         wraper.onmouseleave = function() {
-          markers[key].setIcon(staticImgUrl+"property-marker.png");
-          markers[key].setAnimation(null);
+          markers[i].setIcon(staticImgUrl+"property-marker.png");
+          markers[i].setAnimation(null);
         }
         target.appendChild(wraper);
       }
