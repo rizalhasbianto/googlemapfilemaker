@@ -2,31 +2,49 @@
 
   document.addEventListener('DOMContentLoaded', function(event) {
     const staticImgUrl = "https://cdn.jsdelivr.net/gh/rizalhasbianto/googlemapfilemaker@main/img/";
-    const getPropertyData = sessionStorage.getItem("singleProperty");
-    const propertyData = JSON.parse(getPropertyData);
-    const imgList = propertyData.imagebase64 ? 'data:image/png;base64, ' + propertyData.imagebase64 : staticImgUrl+'no-image.png'
+    const url = 'https://BluePrintMap.hellomuto.repl.co/map-json';
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const recId = urlParams.get('recId');
+    const getPropertyData = sessionStorage.getItem(`singleProperty_${recId}`);
 
-    // load data into html
-    initData(propertyData);
-
-    // hide or show loan data
-    if(propertyData.listingagentcompany) {
-      const listingElement = document.querySelector('.listing');
-      listingElement.style.display = "block"
+    if(getPropertyData) {
+      const propertyData = JSON.parse(getPropertyData);
+      // load data into html
+      initData(propertyData);
+    } else {
+      fetch(url, {
+        method: 'GET',
+        //credentials: 'user:passwd'
+      })
+      .then(response => response.json())
+      .then(data => {
+        const propertyData = data[recId]
+        // load data into html
+        initData(propertyData);
+      })
     }
-    if(propertyData.gccompany) {
-      const listingElement = document.querySelector('.contractor-w');
-      listingElement.style.display = "block"
-    }
-
-    // load img to html
-    const imgElement = document.querySelector('.main-img img');
-    imgElement.setAttribute("src", imgList);
-    imgElement.removeAttribute("srcset")
   })
 
 //Print data to html
 function initData(data) {
+
+  // hide or show loan data
+  if(data.listingagentcompany) {
+    const listingElement = document.querySelector('.listing');
+    listingElement.style.display = "block"
+  }
+  if(data.gccompany) {
+    const listingElement = document.querySelector('.contractor-w');
+    listingElement.style.display = "block"
+  }
+
+  // load img to html
+  const imgList = data.imagebase64 ? 'data:image/png;base64, ' + data.imagebase64 : staticImgUrl+'no-image.png';
+  const imgElement = document.querySelector('.main-img img');
+  imgElement.setAttribute("src", imgList);
+  imgElement.removeAttribute("srcset")
+
   for (const key in data) {
     const elementName = key;
     const className = elementName.replace("::","")
