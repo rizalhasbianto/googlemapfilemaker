@@ -631,13 +631,34 @@ function addMarker( markerData, infoWindow ) {
     "</div>" +
     "</div>";
 
-  marker.addListener("click", () => {
-    infoWindow.setContent(contentString)
-    infoWindow.open({
-      anchor: marker,
-      map,
+    marker.addListener("click", () => {
+      if(window.innerWidth <= 600) {
+        const propList = document.querySelectorAll(".prop-list-wrap");
+        const propertiesWraper = document.querySelector(".info");
+        for (let i = 0; i < propList.length; i++) {
+          const listId = propList[i].getAttribute("id");
+          if(listId == marker.id) {
+            propList[i].style.display = "block";
+          } else {
+            propList[i].style.display = "none";
+          }
+        }
+  
+        for (let i = 0; i < markers.length; i++) {
+          marker.setAnimation(google.maps.Animation.BOUNCE)
+          propertiesWraper.classList.add("show")
+          if(markers[i] != marker) {
+            markers[i].setAnimation(null);
+          }
+        }
+      } else {
+        infoWindow.setContent(contentString)
+        infoWindow.open({
+          anchor: marker,
+          map,
+        });
+      }
     });
-  });
 
   markers.push(marker);
 }
