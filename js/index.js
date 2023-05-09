@@ -436,18 +436,19 @@ function initData(data) {
   });
   
   // Search function
-  const searchField = document.querySelector('.search-field');
+  const searchField = document.querySelectorAll('.search-field');
   var searchInput = document.createElement("input");
   Object.assign(searchInput, {
-    id: 'searcharea',
     className: "search-area",
     type: 'text',
     style:`width:${propertiesWraperHeight-filterheight}px;`,
     oninput: function () {
       searchAddress(this.value)
     },
-  })
-  searchField.appendChild(searchInput)
+  });
+  for (let i = 0; i < searchField.length; i++) {
+    searchField[i].appendChild(searchInput)
+  }
 }
 
 // price slide fill with bg
