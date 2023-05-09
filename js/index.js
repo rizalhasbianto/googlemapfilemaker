@@ -47,35 +47,41 @@ fetch(url, {
   });
 
   // reset function
-  const resetField = document.querySelector(".reset-wrap")
-  if(resetField) {
-    resetField.onclick = function () {  
-      const lower = document.querySelector("#lower"),
-            upper = document.querySelector("#upper"),
-            min = document.querySelector("#min"),
-            max = document.querySelector("#max"),
-            lowerLbl = document.querySelector("#fromprice"),
-            upperLbl = document.querySelector("#toprice"),
-            searchArea = document.querySelectorAll(".search-area"),
-            maxPrice = upper.getAttribute("max")
+  const resetField = document.querySelectorAll(".reset-wrap")
+  function resetAll() {
+    const lower = document.querySelector("#lower"),
+    upper = document.querySelector("#upper"),
+    min = document.querySelector("#min"),
+    max = document.querySelector("#max"),
+    lowerLbl = document.querySelector("#fromprice"),
+    upperLbl = document.querySelector("#toprice"),
+    searchArea = document.querySelectorAll(".search-area"),
+    maxPrice = upper.getAttribute("max")
 
-            lower.value = 0;
-            upper.value = maxPrice;
-            lowerLbl.textContent = formatter.format(0);
-            upperLbl.textContent = formatter.format(maxPrice);
-            min.value = "";
-            min.lastValue = "";
-            max.value = "";
-            max.lastValue = "";
-            for (let i = 0; i < searchArea.length; i++) {
-              searchArea[i].value = "";
-            }
-      
-      controlFromSlider(lower, upper, lowerLbl, upperLbl);
-      zoomFitMarkers();
-      dataFilter(lower.value, upper.value, propList);
-      filterMarker(lower.value, upper.value);
-      scrollbarChange();
+    lower.value = 0;
+    upper.value = maxPrice;
+    lowerLbl.textContent = formatter.format(0);
+    upperLbl.textContent = formatter.format(maxPrice);
+    min.value = "";
+    min.lastValue = "";
+    max.value = "";
+    max.lastValue = "";
+    for (let i = 0; i < searchArea.length; i++) {
+      searchArea[i].value = "";
+    }
+
+    controlFromSlider(lower, upper, lowerLbl, upperLbl);
+    zoomFitMarkers();
+    dataFilter(lower.value, upper.value, propList);
+    filterMarker(lower.value, upper.value);
+    scrollbarChange();
+  }
+
+  if(resetField) {
+    for (let i = 0; i < searchArea.length; i++) {
+      resetField[i].onclick = function () {  
+        resetAll();
+      }
     }
   }
 
