@@ -49,14 +49,14 @@ fetch(url, {
   // reset function
   const resetField = document.querySelector(".reset-wrap")
   if(resetField) {
-    resetField.onclick = function () {
+    resetField.onclick = function () {  
       const lower = document.querySelector("#lower"),
             upper = document.querySelector("#upper"),
             min = document.querySelector("#min"),
             max = document.querySelector("#max"),
             lowerLbl = document.querySelector("#fromprice"),
             upperLbl = document.querySelector("#toprice"),
-            searchArea = document.querySelector("#searcharea"),
+            searchArea = document.querySelectorAll(".search-area"),
             maxPrice = upper.getAttribute("max")
 
             lower.value = 0;
@@ -67,7 +67,9 @@ fetch(url, {
             min.lastValue = "";
             max.value = "";
             max.lastValue = "";
-            searchArea.value = "";
+            for (let i = 0; i < searchArea.length; i++) {
+              searchArea[i].value = "";
+            }
       
       controlFromSlider(lower, upper, lowerLbl, upperLbl);
       zoomFitMarkers();
