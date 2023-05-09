@@ -169,7 +169,7 @@ fetch(url, {
   for (let i = 0; i < singleProLink.length; i++) {
     singleProLink[i].addEventListener("click", function(event){
       event.preventDefault();
-      sessionStorage.setItem("singleProperty", JSON.stringify(data[i]));
+      sessionStorage.setItem(`singleProperty_${i}`, JSON.stringify(data[i]));
       window.open(`./single-property?recId=${i}`, '_blank');
     });
   }
@@ -289,11 +289,11 @@ function initData(data) {
         `;
 
         wraper.onmouseover = function() {
-          markers[i].setIcon(staticImgUrl+"property-marker-black.png");
+          //markers[i].setIcon(staticImgUrl+"property-marker-black.png");
           markers[i].setAnimation(google.maps.Animation.BOUNCE)
         }
         wraper.onmouseleave = function() {
-          markers[i].setIcon(staticImgUrl+"property-marker.png");
+          //markers[i].setIcon(staticImgUrl+"property-marker.png");
           markers[i].setAnimation(null);
         }
         target.appendChild(wraper);
