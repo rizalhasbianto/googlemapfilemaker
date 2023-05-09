@@ -78,7 +78,7 @@ fetch(url, {
   }
 
   if(resetField) {
-    for (let i = 0; i < searchArea.length; i++) {
+    for (let i = 0; i < resetField.length; i++) {
       resetField[i].onclick = function () {  
         resetAll();
       }
