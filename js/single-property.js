@@ -1,7 +1,6 @@
   // Getting Property Detail
 
   document.addEventListener('DOMContentLoaded', function(event) {
-    const staticImgUrl = "https://cdn.jsdelivr.net/gh/rizalhasbianto/googlemapfilemaker@main/img/";
     const url = 'https://BluePrintMap.hellomuto.repl.co/map-json';
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -28,6 +27,7 @@
 
 //Print data to html
 function initData(data) {
+  const staticImgUrl = "https://cdn.jsdelivr.net/gh/rizalhasbianto/googlemapfilemaker@main/img/";
 
   // hide or show loan data
   if(data.listingagentcompany) {
@@ -40,7 +40,7 @@ function initData(data) {
   }
 
   // load img to html
-  const imgList = data.imagebase64 ? 'data:image/png;base64, ' + data.imagebase64 : staticImgUrl+'no-image.png';
+  const imgList = data.fullimagebase64 ? 'data:image/png;base64, ' + data.fullimagebase64 : staticImgUrl+'no-image.png';
   const imgElement = document.querySelector('.main-img img');
   imgElement.setAttribute("src", imgList);
   imgElement.removeAttribute("srcset")
