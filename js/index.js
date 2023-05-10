@@ -178,7 +178,7 @@ fetch(url, {
     singleProLink[i].addEventListener("click", function(event){
       event.preventDefault();
       sessionStorage.setItem(`singleProperty_${i}`, JSON.stringify(data[i]));
-      window.open(`./single-property?recId=${i}`, '_blank');
+      window.open(`./single-property?recId=${i}`);
     });
   }
 });
@@ -234,8 +234,8 @@ function initData(data) {
         state,
         postalCode,
         bathrooms: bathrooms + " bath",
-        bedrooms: bedrooms + "bed",
-        sqft: sqft + "sqft",
+        bedrooms: bedrooms + " bed",
+        sqft: sqft + " sqft",
         type,
         status,
         price,
