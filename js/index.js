@@ -220,10 +220,11 @@ function initData(data) {
       const neighborhood = data[i]?.neighborhood;
       const bathrooms = data[i]?.bathrooms;
       const bedrooms = data[i]?.bedrooms;
+      const sqft = data[i]?.sqfeet;
       const type = data[i]?.type;
       const status = data[i]?.status;
       const price = Number(data[i]?.webprice);
-      const img = data[i]?.imagebase64;
+      const img = data[i]?.thumbnailimagebase64;
       const locationData = data[i]?.geolocation.split(",");
 
       const markerData = {
@@ -234,6 +235,7 @@ function initData(data) {
         postalCode,
         bathrooms: bathrooms + " bath",
         bedrooms: bedrooms + "bed",
+        sqft: sqft + "sqft",
         type,
         status,
         price,
@@ -282,20 +284,38 @@ function initData(data) {
           currency: 'USD',
           minimumFractionDigits: 0
         });
+        if(window.innerWidth <= 600) {
+          wraper.innerHTML = `
+            <div class="img-wrap">
+              <img src="${imgListInfo}">
+            </div>
+            <div class="info-wrap">
+              <div class="info-prop">
+                <span>${markerData.bedrooms}</span>
+                <span>${markerData.bathrooms}</span>
+                <span>${markerData.sqft}</span>
+              </div>
+              <div class="view-wrap">
+                <a href="./single-property?recId=${markerData.recId}" class="single-property-link">view</a>
+              </div>
+            </div>
+          `;
+        } else {
+          wraper.innerHTML = `
+            <a href="./single-property?recId=${markerData.recId}" class="single-property-link" target="_blank">
+              <div class="img-wrap">
+                <img src="${imgListInfo}">
+              </div>
+              <h2>${markerData.status}</h2>
+              <div class="property-info">
+                <p class="price">${formatter.format(markerData.price)}</p>
+                <p class="property-address">${markerData.address}</p>
+                <p>${markerData.bedrooms} | ${markerData.bathrooms} ${propertyType}</p>
+              </div>
+            </a>
+            `;
 
-        wraper.innerHTML = `
-        <a href="./single-property?recId=${markerData.recId}" class="single-property-link" target="_blank">
-          <div class="img-wrap">
-            <img src="${imgListInfo}">
-          </div>
-          <h2>${markerData.status}</h2>
-          <div class="property-info">
-            <p class="price">${formatter.format(markerData.price)}</p>
-            <p class="property-address">${markerData.address}</p>
-            <p>${markerData.bedrooms} | ${markerData.bathrooms} ${propertyType}</p>
-          </div>
-        </a>
-        `;
+        }
 
         wraper.onmouseover = function() {
           //markers[i].setIcon(staticImgUrl+"property-marker-black.png");
