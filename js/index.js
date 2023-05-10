@@ -430,6 +430,35 @@ function initData(data) {
   priceinput.appendChild(min)
   priceinput.appendChild(max)
 
+  // Mobile price filter
+  const minimumPriceElement = document.querySelectorAll(".price-filter-list");
+  let minimumPriceMobile = 0,
+      maximumPriceMobile = maxPrice
+
+  for (let h = 0; h < minimumPriceElement.length; h++) {
+    for (let i = 0; i < 30; i++) {
+      const price = "$"+(i+1)*100+"k";
+      var optList = document.createElement("li");
+      optList.className = "list-price-item";
+      optList.textContent = price;
+      minimumPriceElement[h].appendChild(optList);
+    }
+    minimumPriceElement[h].onscroll = function(){
+      const scrollPos = this.scrollTop / 30
+      const validation = (scrollPos - Math.floor(scrollPos)) !== 0
+      if(!validation) {
+        if(h == 0) {
+          minimumPriceMobile = scrollPos * 100000
+        } else {
+          const priceVal = scrollPos == 0 ? maxPrice : scrollPos * 100000 ;
+          maximumPriceMobile = priceVal
+        }
+        dataFilter(minimumPriceMobile, maximumPriceMobile, propList);
+        filterMarker(minimumPriceMobile, maximumPriceMobile);
+      }
+    }
+  }
+
   // add Neighborhood filter based on data
   targetFilterCity?.appendChild(select);
 
