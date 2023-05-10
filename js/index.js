@@ -248,6 +248,7 @@ function initData(data) {
           option = document.createElement("option");
       wraper.className = "prop-list-wrap";
       wraper.setAttribute("latLang",`{"lat": ${Number(locationData[0])}, "lng": ${Number(locationData[1])}}`);
+      wraper.setAttribute("id",id);
       wraper.setAttribute("filter", "include");
       wraper.setAttribute("filter-map", "include");
 
@@ -603,6 +604,7 @@ function addMarker( markerData, infoWindow ) {
   const marker = new google.maps.Marker({
     position: markerData.position,
     map,
+    id: markerData.id,
     neighborhood: markerData.neighborhood,
     price: markerData.price,
     type: markerData.type,
@@ -638,6 +640,7 @@ function addMarker( markerData, infoWindow ) {
         for (let i = 0; i < propList.length; i++) {
           const listId = propList[i].getAttribute("id");
           if(listId == marker.id) {
+            
             propList[i].style.display = "block";
           } else {
             propList[i].style.display = "none";
