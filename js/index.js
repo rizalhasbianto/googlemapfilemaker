@@ -233,9 +233,9 @@ function initData(data) {
         address,
         state,
         postalCode,
-        bathrooms: bathrooms + " bath",
-        bedrooms: bedrooms + " bed",
-        sqft: sqft + " sqft",
+        bathrooms: bathrooms,
+        bedrooms: bedrooms,
+        sqft: sqft,
         type,
         status,
         price,
@@ -291,9 +291,9 @@ function initData(data) {
             </div>
             <div class="info-wrap">
               <div class="info-prop">
-                <span>${markerData.bedrooms}</span>
-                <span>${markerData.bathrooms}</span>
-                <span>${markerData.sqft}</span>
+                <p><span>${markerData.bedrooms}</span> BED</p>
+                <p><span>${markerData.bathrooms}</span> BATH</p>
+                <p><span>${markerData.sqft}</span> SQFT</p>
               </div>
               <div class="view-wrap">
                 <a href="./single-property?recId=${markerData.recId}" class="single-property-link">view</a>
@@ -302,7 +302,7 @@ function initData(data) {
           `;
         } else {
           wraper.innerHTML = `
-            <a href="./single-property?recId=${markerData.recId}" class="single-property-link" target="_blank">
+            <a href="./single-property?recId=${markerData.recId}" class="single-property-link">
               <div class="img-wrap">
                 <img src="${imgListInfo}">
               </div>
@@ -310,7 +310,7 @@ function initData(data) {
               <div class="property-info">
                 <p class="price">${formatter.format(markerData.price)}</p>
                 <p class="property-address">${markerData.address}</p>
-                <p>${markerData.bedrooms} | ${markerData.bathrooms} ${propertyType}</p>
+                <p>${markerData.bedrooms} Bed | ${markerData.bathrooms} Bath ${propertyType}</p>
               </div>
             </a>
             `;
