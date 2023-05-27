@@ -285,38 +285,20 @@ function initData(data) {
           currency: 'USD',
           minimumFractionDigits: 0
         });
-        if(window.innerWidth <= 600) {
-          wraper.innerHTML = `
+
+        wraper.innerHTML = `
+          <a href="./single-property?recId=${markerData.recId}" class="single-property-link">
             <div class="img-wrap">
               <img src="${imgListInfo}">
             </div>
-            <div class="info-wrap">
-              <div class="info-prop">
-                <p><span>${markerData.bedrooms}</span> BED</p>
-                <p><span>${markerData.bathrooms}</span> BATH</p>
-                <p><span>${markerData.sqft}</span> SQFT</p>
-              </div>
-              <div class="view-wrap">
-                <a href="./single-property?recId=${markerData.recId}" class="single-property-link">view</a>
-              </div>
+            <h2>${markerData.status}</h2>
+            <div class="property-info">
+              <p class="price">${formatter.format(markerData.price)}</p>
+              <p class="property-address">${markerData.address}</p>
+              <p>${markerData.bedrooms} Bed | ${markerData.bathrooms} Bath ${propertyType}</p>
             </div>
-          `;
-        } else {
-          wraper.innerHTML = `
-            <a href="./single-property?recId=${markerData.recId}" class="single-property-link">
-              <div class="img-wrap">
-                <img src="${imgListInfo}">
-              </div>
-              <h2>${markerData.status}</h2>
-              <div class="property-info">
-                <p class="price">${formatter.format(markerData.price)}</p>
-                <p class="property-address">${markerData.address}</p>
-                <p>${markerData.bedrooms} Bed | ${markerData.bathrooms} Bath ${propertyType}</p>
-              </div>
-            </a>
-            `;
-
-        }
+          </a>
+        `;
 
         wraper.onmouseover = function() {
           //markers[i].setIcon(staticImgUrl+"property-marker-black.png");
@@ -438,7 +420,14 @@ function initData(data) {
 
   for (let h = 0; h < minimumPriceElement.length; h++) {
     for (let i = 0; i < 30; i++) {
-      const price = "$"+(i+1)*100+"k";
+      let price
+      const priceNumber = ( i + 1 ) * 100;
+      if(priceNumber < 1000) {
+        price = `$${priceNumber} K`;
+      } else {
+        price = `$${priceNumber / 1000} M`;
+      }
+
       var optList = document.createElement("li");
       optList.className = "list-price-item";
       optList.textContent = price;
