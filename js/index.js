@@ -691,11 +691,15 @@ function addMarker( markerData, infoWindow ) {
         const detailElm = document.querySelector(".detail-property"),
               bathElm = detailElm.querySelector(".bathrooms"),
               bedElm = detailElm.querySelector(".bedrooms"),
-              sqftElm = detailElm.querySelector(".sqfeet");
+              sqftElm = detailElm.querySelector(".sqfeet"),
+              imgElement = detailElm.querySelector('.mbl-img-list-pop'),
+              imgList = data.fullimg ? 'data:image/png;base64, ' + marker.room.img : staticImgUrl+'no-image.png';
 
               bathElm.textContent = marker.room.bathrooms;
               bedElm.textContent = marker.room.bedrooms;
               sqftElm.textContent = marker.room.sqft;
+              imgElement.setAttribute("src", imgList);
+              imgElement.removeAttribute("srcset")
               detailElm.classList.add("show");
               marker.setIcon(staticImgUrl+"property-marker-black-s.png");
               marker.setAnimation(google.maps.Animation.BOUNCE);
