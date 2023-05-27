@@ -659,6 +659,12 @@ function addMarker( markerData, infoWindow ) {
     icon: {
       url: staticImgUrl+"property-marker.png"
     },
+    room: {
+      bathrooms: markerData.bathrooms,
+      bedrooms: markerData.bedrooms,
+      sqft: markerData.sqft,
+      img: markerData.img
+    }
   });
 
   const imgListInfo = markerData.img ? 'data:image/png;base64, ' + markerData.img : staticImgUrl+'no-image.png'
@@ -682,25 +688,23 @@ function addMarker( markerData, infoWindow ) {
 
     marker.addListener("click", () => {
       if(window.innerWidth <= 600) {
-        const propList = document.querySelectorAll(".prop-list-wrap");
-        const propertiesWraper = document.querySelector(".info");
-        for (let i = 0; i < propList.length; i++) {
-          const listId = propList[i].getAttribute("id");
-          if(listId == marker.id) {
-            
-            propList[i].style.display = "block";
-          } else {
-            propList[i].style.display = "none";
-          }
-        }
-  
-        for (let i = 0; i < markers.length; i++) {
-          marker.setAnimation(google.maps.Animation.BOUNCE)
-          propertiesWraper.classList.add("show")
-          if(markers[i] != marker) {
-            markers[i].setAnimation(null);
-          }
-        }
+        const detailElm = document.querySelector(".detail-property"),
+              bathElm = detailElm.querySelector(".bathrooms"),
+              bedElm = detailElm.querySelector(".bedrooms"),
+              sqftElm = detailElm.querySelector(".sqfeet");
+
+              bathElm.textContent = marker.room.bathrooms;
+              bedElm.textContent = marker.room.bedrooms;
+              sqftElm.textContent = marker.room.sqft;
+              detailElm.classList.add("show");
+              marker.setIcon(staticImgUrl+"property-marker-black-s.png");
+              marker.setAnimation(google.maps.Animation.BOUNCE);
+              for (let i = 0; i < markers.length; i++) {
+                if(markers[i] != marker) {
+                  markers[i].setIcon(staticImgUrl+"property-marker.png");
+                  markers[i].setAnimation(null);
+                }
+              }
       } else {
         infoWindow.setContent(contentString)
         infoWindow.open({
