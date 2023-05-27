@@ -361,7 +361,7 @@ function initData(data) {
       scrollbarChange();
     },
     oninput: function() {
-      controlFromSlider(this, upper, lowerLbl, upperLbl)
+      controlFromSlider(lower, this, lowerLbl, upperLbl, "lower")
       lowerLbl.textContent = formatter.format(this.value)
     }
   })
@@ -377,7 +377,7 @@ function initData(data) {
       scrollbarChange();
     },
     oninput: function() {
-      controlFromSlider(lower, this, lowerLbl, upperLbl)
+      controlFromSlider(lower, this, lowerLbl, upperLbl, "upper")
       upperLbl.textContent = formatter.format(this.value)
     }
   })
@@ -525,13 +525,21 @@ function fillSlider(from, to, sliderColor, rangeColor, controlSlider, lowerLbl, 
     ${sliderColor} ${(toPosition)/(rangeDistance)*100}%, 
     ${sliderColor} 100%)`;
 }
-function controlFromSlider(lower, upper, lowerLbl, upperLbl) {
+
+function controlFromSlider(lower, upper, lowerLbl, upperLbl, type) {
   const [from, to] = getParsed(lower, upper);
-  fillSlider(lower, upper, '#ffffff00', '#5A84C0', upper, lowerLbl, upperLbl);
-  if (from > to) {
-    lower.value = to;
+  const range = upper.value - lower.value
+  if( range < 1000000) {
+    if(type == "lower") {
+      lower.value = (to - 1000000)
+    } else if(type == "upper") {
+      upper.value = (from + 1000000)
+    }
+  } else {
+    fillSlider(lower, upper, '#ffffff00', '#5A84C0', upper, lowerLbl, upperLbl);
   }
 }
+
 function getParsed(currentFrom, currentTo) {
   const from = parseInt(currentFrom.value, 10);
   const to = parseInt(currentTo.value, 10);
@@ -547,13 +555,13 @@ const formatter = new Intl.NumberFormat('en-US', {
 
 // zoom fit marker function
 function zoomFitMarkers() {
-  let latlngbounds = new google.maps.LatLngBounds();
-  for (let i = 0; i < markers.length; i++) {
-    latlngbounds.extend(markers[i].position);
-  }
-  map.fitBounds(latlngbounds);
-  var zoom = map.getZoom();
-  map.setZoom(zoom > 12 ? 12 : zoom);
+  //let latlngbounds = new google.maps.LatLngBounds();
+  //for (let i = 0; i < markers.length; i++) {
+  //  latlngbounds.extend(markers[i].position);
+  //}
+  //map.fitBounds(latlngbounds);
+  //var zoom = map.getZoom();
+  map.setZoom(13);
 }
 
 const neighborhoodFilter = (getNeighborhoodAttr, neighborhoodSelected) => {
@@ -618,7 +626,7 @@ async function addNeighborhoodMarker( neighborhoodList ) {
         url: staticImgUrl+"marker-blue.png",
         scaledSize: new google.maps.Size(30, 30)
       },
-      visible: true,
+      visible: false,
       optimized: false,
       label:`${neighborhoodList[i].total}`,
     });
@@ -657,7 +665,7 @@ function addMarker( markerData, infoWindow ) {
     neighborhood: markerData.neighborhood,
     price: markerData.price,
     type: markerData.type,
-    visible: false,
+    visible: true,
     icon: {
       url: staticImgUrl+"property-marker.png"
     },
