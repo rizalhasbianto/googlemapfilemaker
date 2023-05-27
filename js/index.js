@@ -693,7 +693,7 @@ function addMarker( markerData, infoWindow ) {
               bedElm = detailElm.querySelector(".bedrooms"),
               sqftElm = detailElm.querySelector(".sqfeet"),
               imgElement = detailElm.querySelector('.mbl-img-list-pop'),
-              imgList = data.fullimg ? 'data:image/png;base64, ' + marker.room.img : staticImgUrl+'no-image.png';
+              imgList = marker.room.img ? 'data:image/png;base64, ' + marker.room.img : staticImgUrl+'no-image.png';
 
               bathElm.textContent = marker.room.bathrooms;
               bedElm.textContent = marker.room.bedrooms;
