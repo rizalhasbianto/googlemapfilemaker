@@ -13,13 +13,20 @@ const splitMarkerZoom = 13;
 const staticImgUrl = "https://cdn.jsdelivr.net/gh/rizalhasbianto/googlemapfilemaker@main/img/";
 
 function initMap() {
-
-  map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 8,
-    center: new google.maps.LatLng(47.60507343621495, -122.32353164431197),
-    mapTypeId: "terrain",
-    disableDefaultUI: true,
-  });
+  if(window.innerWidth <= 600) {
+    map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 8,
+      center: new google.maps.LatLng(47.60507343621495, -122.32353164431197),
+      mapTypeId: "terrain",
+      disableDefaultUI: true,
+    });
+  } else {
+    map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 8,
+      center: new google.maps.LatLng(47.60507343621495, -122.32353164431197),
+      mapTypeId: "terrain",
+    });
+  }
 }
 
 fetch(url, {
@@ -344,7 +351,7 @@ function initData(data) {
       scrollbarChange();
     },
     oninput: function() {
-      controlFromSlider(lower, this, lowerLbl, upperLbl, "lower")
+      controlFromSlider(this, upper, lowerLbl, upperLbl, "lower")
       lowerLbl.textContent = formatter.format(this.value)
     }
   })
@@ -518,7 +525,7 @@ function fillSlider(from, to, sliderColor, rangeColor, controlSlider, lowerLbl, 
 
 function controlFromSlider(lower, upper, lowerLbl, upperLbl, type) {
   const [from, to] = getParsed(lower, upper);
-  const range = upper.value - lower.value
+  const range = to - from
   if( range < 1000000) {
     if(type == "lower") {
       lower.value = (to - 1000000)
