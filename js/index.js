@@ -29,6 +29,9 @@ function initMap() {
   }
 }
 
+window.initMap = initMap;
+
+
 fetch(url, {
   method: 'GET',
   //credentials: 'user:passwd'
@@ -37,6 +40,7 @@ fetch(url, {
 .then(data => {
   // SHOWING PROPERTIES AND ADD MARKER TO MAP
   initData(data);
+
   // filter function
   const propList = document.querySelectorAll('.prop-list-wrap');
   google.maps.event.addListener(map, 'idle', function() {
@@ -181,7 +185,6 @@ fetch(url, {
 
   // Single property link function
   const singleProLink = document.querySelectorAll('.single-property-link');
-
   for (let i = 0; i < singleProLink.length; i++) {
     singleProLink[i].addEventListener("click", function(event){
       event.preventDefault();
@@ -190,19 +193,6 @@ fetch(url, {
     });
   }
 });
-
-// SCROLLBAR change function
-function scrollbarChange() {
-      const target = document.querySelector('.properties');
-      const filterElement = document.querySelector(".filter--wrapper");
-      const propertiesWraper = document.querySelector(".info");
-      const scrollbarInput = document.querySelector('.scrollbar')
-      const scrollinnerHeight = target.scrollHeight;
-      const propertiesWraperHeight = propertiesWraper.clientHeight;
-      const filterheight = filterElement.clientHeight;
-      const totalscroll = (scrollinnerHeight-propertiesWraperHeight)+filterheight;
-      scrollbarInput.setAttribute("max",totalscroll)
-}
 
 // SHOWING PROPERTIES AND ADD MARKER TO MAP
 function initData(data) {
@@ -318,6 +308,7 @@ function initData(data) {
         target.appendChild(wraper);
       }
   }
+
   // Get price range
   var lower = document.createElement("input"),
       upper = document.createElement("input"),
@@ -467,8 +458,8 @@ function initData(data) {
 
   // BUILD SCROLLBAR
   const scrollbarWraper = document.querySelector(".scroll-fake");
-  const filterElement = document.querySelector(".filter--wrapper");
   const propertiesWraper = document.querySelector(".info");
+  const filterElement = propertiesWraper.querySelector(".filter--wrapper");
   var scrollbar = document.createElement("input");
   const scrollinnerHeight = target.scrollHeight;
   const propertiesWraperHeight = propertiesWraper.clientHeight;
@@ -487,7 +478,7 @@ function initData(data) {
   })
   scrollbarWraper.appendChild(scrollbar)
   propertiesWraper.addEventListener("scroll", function() {
-    scrollbar.value = this.scrollTop
+    scrollbar.value = this.scrollTop;
   });
   
   // Search function
@@ -757,4 +748,15 @@ function check_is_in_or_out(marker){
   return map.getBounds().contains(marker.getPosition());
 }
 
-window.initMap = initMap;
+// Load big img to properties
+
+function isInViewport(el) {
+  const rect = el.getBoundingClientRect();
+  return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+
+  );
+}
