@@ -194,6 +194,19 @@ fetch(url, {
   }
 });
 
+// SCROLLBAR change function
+function scrollbarChange() {
+  const target = document.querySelector('.properties');
+  const filterElement = document.querySelector(".filter--wrapper");
+  const propertiesWraper = document.querySelector(".info");
+  const scrollbarInput = document.querySelector('.scrollbar')
+  const scrollinnerHeight = target.scrollHeight;
+  const propertiesWraperHeight = propertiesWraper.clientHeight;
+  const filterheight = filterElement.clientHeight;
+  const totalscroll = (scrollinnerHeight-propertiesWraperHeight)+filterheight;
+  scrollbarInput.setAttribute("max",totalscroll)
+}
+
 // SHOWING PROPERTIES AND ADD MARKER TO MAP
 function initData(data) {
   const target = document.querySelector('.properties');
