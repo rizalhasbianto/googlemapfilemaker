@@ -63,7 +63,7 @@ function initData( data, map ) {
         };
         
         // Add Marker to map
-        addMarker(markerData, infoWindow, staticImgUrl, markers );
+        addMarker(markerData, infoWindow, staticImgUrl, markers, map );
   
         // Create Property list
         createProperties(

@@ -1,5 +1,5 @@
 // add single marker
-function addMarker( markerData, infoWindow, staticImgUrl, markers ) {
+function addMarker( markerData, infoWindow, staticImgUrl, markers, map ) {
     const marker = new google.maps.Marker({
       position: markerData.position,
       map,
