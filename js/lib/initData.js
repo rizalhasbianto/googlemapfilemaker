@@ -92,7 +92,7 @@ function initData( data, map ) {
     targetFilterCity?.appendChild(select);
   
     // Add Neighborhood marker
-    addNeighborhoodMarker( neighborhoodList, neighborhoodMarkers, staticImgUrl )
+    addNeighborhoodMarker( neighborhoodList, neighborhoodMarkers, staticImgUrl, map )
     
     // ZOOM Fit to markers
     zoomFitMarkers(map);

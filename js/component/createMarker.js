@@ -87,7 +87,7 @@ const getAddressLatLang = address => {
   });
 };
 
-async function addNeighborhoodMarker( neighborhoodList, neighborhoodMarkers, staticImgUrl ) {
+async function addNeighborhoodMarker( neighborhoodList, neighborhoodMarkers, staticImgUrl, map ) {
   for (let i = 0; i < neighborhoodList.length; i++) {
     const findNeighborhoodGeo = await getAddressLatLang(neighborhoodList[i].name)
     const neighborhoodMarker = new google.maps.Marker({
