@@ -1,4 +1,5 @@
-import initData from './lib/initData.js'
+import { initData } from './lib/initData.js'
+import { initMap } from './lib/initMap.js'
 const url = 'https://BluePrintMap.hellomuto.repl.co/map-json';
 
 // Create Map
