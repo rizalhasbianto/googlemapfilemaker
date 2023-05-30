@@ -11,7 +11,8 @@ function createProperties(
     markerData, 
     markers, 
     target,
-    i
+    i,
+    staticImgUrl
     ) {
     var wraper = document.createElement("div"),
           option = document.createElement("option");

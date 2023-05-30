@@ -79,7 +79,8 @@ function initData( data, map ) {
           markerData, 
           markers, 
           target,
-          i
+          i,
+          staticImgUrl
         );
     }
   
