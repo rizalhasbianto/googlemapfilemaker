@@ -1,4 +1,4 @@
-import { scrollbarChange } from './lib/scrollbarChange.js'
+import { scrollbarChange } from '../lib/scrollbarChange.js'
 
 function mapBoundFilter (propList, map) {
     google.maps.event.addListener(map, 'idle', function () {

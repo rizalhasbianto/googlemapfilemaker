@@ -1,7 +1,7 @@
-import { controlFromSlider } from './lib/controlFromSlider.js'
-import { dataFilter } from './lib/dataFilter.js'
-import { filterMarker } from './lib/filterMarker.js'
-import { scrollbarChange } from './lib/scrollProperties.js'
+import { controlFromSlider } from '../lib/controlFromSlider.js'
+import { dataFilter } from '../lib/dataFilter.js'
+import { filterMarker } from '../lib/filterMarker.js'
+import { scrollbarChange } from '../lib/scrollProperties.js'
 
 function createFilter() {
     var lower = document.createElement("input"),

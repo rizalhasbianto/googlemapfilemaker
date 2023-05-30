@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <title>BluePrint Property</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <script src="./js/single-property.js"></script>
+    <script>
+      const price = sessionStorage.getItem("price");
+      console.log(price)
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+    <script type="module">
+      //var slider = tns({
+      //  container: '.my-slider',
+      //  items: 1,
+      //  slideBy: 'page',
+      //  autoplay: true
+      //});
+    </script>
+    <div class="page">
+      <div class="container">
+        <div class="single-property-page">
+          <div class="single-img-wrap">
+            <div class="my-slider">
+              <div class="main-img">
+                <img src="./img/image1.png" />
+              </div>
+              <div class="sec-img">
+                <img src="./img/image2.png" />
+                <img src="./img/image3.png" />
+              </div>
+            </div>
+          </div>
+          <div class="info-wrap">
+            <div class="property-detail">
+              <p class="status_wrap">Status: <span class="status"></span></p>
+              <p class="address"><span class="address1"></span> <span class="city"></span>,<span class="state"></span> <span class="postalcode"></span></p>
+              <p class="webprice"></p>
+              <div class="property-room">
+                <div class="prop-room-detail">
+                  <span class="bedrooms nmbr"></span> BED
+                </div>
+                <div class="prop-room-detail">
+                  <span class="bathrooms nmbr"></span> BATH
+                </div>
+                <div class="prop-room-detail">
+                  <span class="sqfeet nmbr"></span> SQFT
+                </div>
+              </div>
+            </div>
+            <div class="vendor">
+              <div class="vendor-list listing hidden">
+                <h2 class="vendor-role">Listing Agent</h2>
+                <h3 class="vendor-name listingagentname"></h3>
+                <p class="vendor-detail listingagentcompany"></p>
+                <p class="vendor-phone listingagentphone"></p>
+                <p class="vendor-email listingagentemail"></p>
+              </div>
+              <div class="vendor-list contractor-w hidden">
+                <h2 class="vendor-role">Contractor</h2>
+                <h3 class="vendor-name gcname"></h3>
+                <p class="vendor-detail gccompany"></p>
+                <p class="vendor-phone gcphone"></p>
+                <p class="vendor-email gcemail"></p>
+              </div>
+            </div>
+            <p>More information on this property can be obtained by calling the contact phone number(s) listed above. Please note that plans, specifications and prices are subject to change.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

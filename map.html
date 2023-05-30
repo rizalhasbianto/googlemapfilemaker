@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <title>BluePrint Maps</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/gh/rizalhasbianto/googlemapfilemaker@1.01/js/index.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class="page">
+      <div class="container">
+        <div id="map"></div>
+        <div class="info glider-scrollable overflow">
+          <div class="mobile-type-list">
+            <button></button>
+          </div>
+          <div class="filter--wrapper">
+            <div class="filter-price-wrap">
+              <div class="filter-select filter-label" data-label="filter-price" data-status="close"><span>Price</span></div>
+              <fieldset class="filter-price">
+                <div class="price-filter-title">Price</div>
+                <div class="price-field">
+                </div>
+                <div class="price-wrap">
+                </div>
+              </fieldset>
+            </div>
+            <div class="mobile-price-filter">
+              <a href="#" class="w-button">close</a>
+              <div class="choice-filter">
+                  <div class="minimum-price">
+                      <div class="selected-price"></div>
+                      <ul role="list" class="price-filter-list">
+                          <li class="list-price-item">No minimum</li>
+                      </ul>
+                  </div>
+                  <div class="maximum-price">
+                      <div class="selected-price"></div>
+                      <ul role="list" class="price-filter-list">
+                          <li class="list-price-item">No maximum</li>
+                      </ul>
+                  </div>
+              </div>
+            </div>
+            <div class="reset-wrap">
+              <button>Reset</button>
+            </div>
+            <div class="search-area-wrap">
+              <div class="search-field"></div>
+              <img src="./img/search.png" />
+            </div>
+          </div>
+          <div class="properties"></div>
+        </div>
+        <div class="scroll-fake">
+        </div>
+      </div>
+    </div>
+    
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&libraries=marker&v=beta"
+      defer
+    ></script>
+  </body>
+</html>

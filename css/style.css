@@ -261,12 +261,14 @@ PRICE FILTER
 .price-field input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   pointer-events: all;
-  width: 2px;
-  height: 28px;
-  background-color: #5A84C0;
+  width: 8px;
+  height: 8px;
+  background-color: transparent;
   cursor: pointer;
   position: relative;
-  top:-4px
+  border:2px solid #000;
+  border-radius: 50%;
+  top:-15px
 }
 
 .price-field input[type="range"]::-moz-range-thumb {
@@ -344,7 +346,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 #fromprice, #toprice {
   position: absolute;
-  top: 0px;
+  top: -5px;
   width: 100px;
   text-align: center;
   margin-left: -50px;

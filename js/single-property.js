@@ -27,7 +27,7 @@
 
 //Print data to html
 function initData(data) {
-
+  
   // hide or show loan data
   if(data.listingagentcompany) {
     const listingElement = document.querySelector('.listing');
@@ -40,6 +40,10 @@ function initData(data) {
 
   // load img to html
   loadBigImgdata(data.id)
+  //const imgList = data.fullimagebase64 ? 'data:image/png;base64, ' + data.fullimagebase64 : staticImgUrl+'no-image.png';
+  //const imgElement = document.querySelector('.main-img img');
+  //imgElement.setAttribute("src", imgList);
+  //imgElement.removeAttribute("srcset")
 
   for (const key in data) {
     const elementName = key;

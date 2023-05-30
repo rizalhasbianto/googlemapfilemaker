@@ -1,8 +1,8 @@
   // reset function
-  import { controlFromSlider } from './lib/controlFromSlider.js'
-  import { dataFilter } from './lib/dataFilter.js'
-  import { filterMarker, zoomFitMarkers } from './lib/filterMarker.js'
-  import { scrollbarChange } from './lib/scrollProperties.js'
+  import { controlFromSlider } from '../lib/controlFromSlider.js'
+  import { dataFilter } from '../lib/dataFilter.js'
+  import { filterMarker, zoomFitMarkers } from '../lib/filterMarker.js'
+  import { scrollbarChange } from '../lib/scrollProperties.js'
 
   function resetAll(propList) {
     const lower = document.querySelector("#lower"),
