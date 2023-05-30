@@ -1,6 +1,6 @@
 import { scrollbarChange } from '../lib/scrollProperties.js'
 
-function mapBoundFilter (propList, map) {
+function mapBoundFilter (propList, map, splitMarkerZoom) {
     google.maps.event.addListener(map, 'idle', function () {
         // FILTER PROPERTY BASED ON MAP BOUND
         for (let i = 0; i < propList.length; i++) {

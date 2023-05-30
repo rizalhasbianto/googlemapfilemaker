@@ -1,16 +1,4 @@
-const priceFilter = (getPriceAttr, lowPriceSelect, highPriceSelect) => {
-    if(getPriceAttr >= Number(lowPriceSelect) && getPriceAttr <= Number(highPriceSelect)) {
-      return true;
-    }
-    return false;
-  }
-  
-const typeFilter = (getTypeAttr, typeSelected) => {
-  if(typeSelected.includes(getTypeAttr)) {
-    return true;
-  }
-  return false;
-}
+import { priceFilter , typeFilter} from '../lib/filterFunction.js'
   
 function dataFilter(lowPriceSelected, highPriceSelected, propList, map) {
     if (propList) {
@@ -37,4 +25,4 @@ function dataFilter(lowPriceSelected, highPriceSelected, propList, map) {
     }
 }
 
-export { typeFilter , dataFilter }
+export { dataFilter }

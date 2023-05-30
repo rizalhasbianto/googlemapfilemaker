@@ -1,3 +1,5 @@
+import { priceFilter , typeFilter} from '../lib/filterFunction.js'
+
 // Filter markers at map
 function filterMarker(lowPriceSelected, highPriceSelected, map, markers) {
   //let latlngbounds = new google.maps.LatLngBounds();
