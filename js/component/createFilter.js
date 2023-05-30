@@ -2,8 +2,9 @@ import { controlFromSlider } from '../lib/controlFromSlider.js'
 import { dataFilter } from '../lib/dataFilter.js'
 import { filterMarker } from '../lib/filterMarker.js'
 import { scrollbarChange } from '../lib/scrollProperties.js'
+import { moneyFormatter } from '../lib/moneyFormatter.js'
 
-function createFilter() {
+function createFilter(markers) {
     var lower = document.createElement("input"),
         upper = document.createElement("input"),
         min = document.createElement("input"),
