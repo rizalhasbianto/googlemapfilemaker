@@ -5,6 +5,7 @@ import { zoomFitMarkers } from '../lib/filterMarker.js'
 import { createScrollBar } from '../component/createScrollBar.js'
 import { createSearch } from '../component/createSearch.js'
 import { mapBoundFilter } from '../lib/mapBoundFilter.js'
+import { itemLink } from '../lib/itemLink.js'
 
 let markerPosition = []
 let neighborhoodList = []
@@ -91,7 +92,7 @@ function initData( data, map ) {
     targetFilterCity?.appendChild(select);
   
     // Add Neighborhood marker
-    addNeighborhoodMarker( neighborhoodList, neighborhoodMarkers )
+    addNeighborhoodMarker( neighborhoodList, neighborhoodMarkers, staticImgUrl )
     
     // ZOOM Fit to markers
     zoomFitMarkers(map);
