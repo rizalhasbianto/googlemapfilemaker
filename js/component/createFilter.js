@@ -4,7 +4,7 @@ import { filterMarker } from '../lib/filterMarker.js'
 import { scrollbarChange } from '../lib/scrollProperties.js'
 import { moneyFormatter } from '../lib/moneyFormatter.js'
 
-function createFilter(markers, map) {
+function createFilter(markers, map, splitMarkerZoom) {
     var lower = document.createElement("input"),
         upper = document.createElement("input"),
         min = document.createElement("input"),
@@ -33,7 +33,7 @@ function createFilter(markers, map) {
         value: minPrice,
         onchange: function() {
             dataFilter(this.value, upper.value, propList, map);
-            filterMarker(this.value, upper.value, map, markers);
+            filterMarker(this.value, upper.value, map, markers, splitMarkerZoom);
             scrollbarChange();
         },
         oninput: function() {
@@ -49,7 +49,7 @@ function createFilter(markers, map) {
         value: maxPrice,
         onchange: function() {
             dataFilter(lower.value, this.value, propList, map);
-            filterMarker(lower.value, this.value, map, markers);
+            filterMarker(lower.value, this.value, map, markers, splitMarkerZoom);
             scrollbarChange();
         },
         oninput: function() {
@@ -76,7 +76,7 @@ function createFilter(markers, map) {
             controlFromSlider(lower, upper, lowerLbl, upperLbl)
             lowerLbl.textContent = moneyFormatter.format(this.value)
             dataFilter(this.value, upper.value, propList, map);
-            filterMarker(this.value, upper.value, map, markers);
+            filterMarker(this.value, upper.value, map, markers, splitMarkerZoom);
         },
     })
     Object.assign(max, {
@@ -98,7 +98,7 @@ function createFilter(markers, map) {
             controlFromSlider(lower, upper, lowerLbl, upperLbl)
             upperLbl.textContent = moneyFormatter.format(this.value)
             dataFilter(lower.value, this.value, propList, map);
-            filterMarker(lower.value, this.value, map, markers);
+            filterMarker(lower.value, this.value, map, markers, splitMarkerZoom);
         },
     })
 
@@ -137,7 +137,7 @@ function createFilter(markers, map) {
                     maximumPriceMobile = priceVal
                 }
                 dataFilter(minimumPriceMobile, maximumPriceMobile, propList, map);
-                filterMarker(minimumPriceMobile, maximumPriceMobile, map, markers);
+                filterMarker(minimumPriceMobile, maximumPriceMobile, map, markers, splitMarkerZoom);
             }
         }
     }

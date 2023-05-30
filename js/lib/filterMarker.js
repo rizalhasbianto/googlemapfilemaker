@@ -1,7 +1,7 @@
 import { priceFilter , typeFilter} from '../lib/filterFunction.js'
 
 // Filter markers at map
-function filterMarker(lowPriceSelected, highPriceSelected, map, markers) {
+function filterMarker(lowPriceSelected, highPriceSelected, map, markers, splitMarkerZoom) {
   //let latlngbounds = new google.maps.LatLngBounds();
   for (let i = 0; i < markers.length; i++) {
     //const getNeighborhoodAttr = markers[i].neighborhood;
