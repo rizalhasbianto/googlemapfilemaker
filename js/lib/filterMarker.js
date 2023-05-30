@@ -1,5 +1,5 @@
 // Filter markers at map
-function filterMarker(lowPriceSelected, highPriceSelected) {
+function filterMarker(lowPriceSelected, highPriceSelected, map) {
   //let latlngbounds = new google.maps.LatLngBounds();
   for (let i = 0; i < markers.length; i++) {
     //const getNeighborhoodAttr = markers[i].neighborhood;

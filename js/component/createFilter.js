@@ -4,7 +4,7 @@ import { filterMarker } from '../lib/filterMarker.js'
 import { scrollbarChange } from '../lib/scrollProperties.js'
 import { moneyFormatter } from '../lib/moneyFormatter.js'
 
-function createFilter(markers) {
+function createFilter(markers, map) {
     var lower = document.createElement("input"),
         upper = document.createElement("input"),
         min = document.createElement("input"),
@@ -32,8 +32,8 @@ function createFilter(markers) {
         max: maxPrice,
         value: minPrice,
         onchange: function() {
-            dataFilter(this.value, upper.value, propList);
-            filterMarker(this.value, upper.value);
+            dataFilter(this.value, upper.value, propList, map);
+            filterMarker(this.value, upper.value, map);
             scrollbarChange();
         },
         oninput: function() {
@@ -49,7 +49,7 @@ function createFilter(markers) {
         value: maxPrice,
         onchange: function() {
             dataFilter(lower.value, this.value, propList);
-            filterMarker(lower.value, this.value);
+            filterMarker(lower.value, this.value, map);
             scrollbarChange();
         },
         oninput: function() {
@@ -75,8 +75,8 @@ function createFilter(markers) {
             lower.value = this.value
             controlFromSlider(lower, upper, lowerLbl, upperLbl)
             lowerLbl.textContent = moneyFormatter.format(this.value)
-            dataFilter(this.value, upper.value, propList);
-            filterMarker(this.value, upper.value);
+            dataFilter(this.value, upper.value, propList, map);
+            filterMarker(this.value, upper.value, map);
         },
     })
     Object.assign(max, {
@@ -97,8 +97,8 @@ function createFilter(markers) {
             upper.value = this.value
             controlFromSlider(lower, upper, lowerLbl, upperLbl)
             upperLbl.textContent = moneyFormatter.format(this.value)
-            dataFilter(lower.value, this.value, propList);
-            filterMarker(lower.value, this.value);
+            dataFilter(lower.value, this.value, propList, map);
+            filterMarker(lower.value, this.value, map);
         },
     })
 
@@ -136,8 +136,8 @@ function createFilter(markers) {
                     const priceVal = scrollPos == 0 ? maxPrice : scrollPos * 100000;
                     maximumPriceMobile = priceVal
                 }
-                dataFilter(minimumPriceMobile, maximumPriceMobile, propList);
-                filterMarker(minimumPriceMobile, maximumPriceMobile);
+                dataFilter(minimumPriceMobile, maximumPriceMobile, propList, map);
+                filterMarker(minimumPriceMobile, maximumPriceMobile, map);
             }
         }
     }

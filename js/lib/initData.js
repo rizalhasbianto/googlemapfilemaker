@@ -86,7 +86,7 @@ function initData( data, map ) {
     }
   
     // Create Filter
-    createFilter(markers);
+    createFilter(markers, map);
   
     // add Neighborhood filter based on data
     targetFilterCity?.appendChild(select);

@@ -12,7 +12,7 @@ const typeFilter = (getTypeAttr, typeSelected) => {
   return false;
 }
   
-function dataFilter(lowPriceSelected, highPriceSelected, propList) {
+function dataFilter(lowPriceSelected, highPriceSelected, propList, map) {
     if (propList) {
         for (let i = 0; i < propList.length; i++) {
             //const getNeighborhoodAttr = propList[i].getAttribute("neighborhood");
