@@ -48,7 +48,7 @@ function createFilter(markers, map) {
         max: maxPrice,
         value: maxPrice,
         onchange: function() {
-            dataFilter(lower.value, this.value, propList);
+            dataFilter(lower.value, this.value, propList, map);
             filterMarker(lower.value, this.value, map, markers);
             scrollbarChange();
         },
