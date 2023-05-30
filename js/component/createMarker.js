@@ -73,6 +73,20 @@ function addMarker( markerData, infoWindow, staticImgUrl, markers ) {
     markers.push(marker);
   }
 
+// find bound of area
+const getAddressLatLang = address => {
+  return new Promise((resolve, reject) => {
+      const geocoder = new google.maps.Geocoder();
+      geocoder.geocode({address: address + "Seattle USA"}, (results, status) => {
+          if (status === 'OK') {
+              resolve(results[0].geometry);
+          } else {
+              reject(status);
+          }    
+      });    
+  });
+};
+
 async function addNeighborhoodMarker( neighborhoodList, neighborhoodMarkers ) {
   for (let i = 0; i < neighborhoodList.length; i++) {
     const findNeighborhoodGeo = await getAddressLatLang(neighborhoodList[i].name)

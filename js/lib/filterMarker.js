@@ -24,7 +24,7 @@ function filterMarker(lowPriceSelected, highPriceSelected) {
 }
 
 // zoom fit marker function
-function zoomFitMarkers() {
+function zoomFitMarkers(map) {
     //let latlngbounds = new google.maps.LatLngBounds();
     //for (let i = 0; i < markers.length; i++) {
     //  latlngbounds.extend(markers[i].position);

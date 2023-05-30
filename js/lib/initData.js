@@ -94,7 +94,7 @@ function initData( data, map ) {
     addNeighborhoodMarker( neighborhoodList, neighborhoodMarkers )
     
     // ZOOM Fit to markers
-    zoomFitMarkers();
+    zoomFitMarkers(map);
   
     // BUILD SCROLLBAR
     createScrollBar(target);
