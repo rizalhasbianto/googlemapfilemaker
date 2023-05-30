@@ -1,10 +1,10 @@
-import { addMarker, addNeighborhoodMarker } from './component/createMarker.js'
-import { createProperties } from './component/createProperties.js'
-import { createFilter } from './component/createFilter.js'
-import { zoomFitMarkers } from './lib/filterMarker.js'
-import { createScrollBar } from './component/createScrollBar.js'
-import { createSearch } from './component/createSearch.js'
-import { mapBoundFilter } from './lib/mapBoundFilter.js'
+import { addMarker, addNeighborhoodMarker } from '../component/createMarker.js'
+import { createProperties } from '../component/createProperties.js'
+import { createFilter } from '../component/createFilter.js'
+import { zoomFitMarkers } from '../lib/filterMarker.js'
+import { createScrollBar } from '../component/createScrollBar.js'
+import { createSearch } from '../component/createSearch.js'
+import { mapBoundFilter } from '../lib/mapBoundFilter.js'
 
 let markerPosition = []
 let neighborhoodList = []
