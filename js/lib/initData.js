@@ -63,7 +63,7 @@ function initData( data, map ) {
         };
         
         // Add Marker to map
-        addMarker(markerData, infoWindow, staticImgUrl);
+        addMarker(markerData, infoWindow, staticImgUrl, markers );
   
         // Create Property list
         createProperties(
@@ -90,7 +90,7 @@ function initData( data, map ) {
     targetFilterCity?.appendChild(select);
   
     // Add Neighborhood marker
-    addNeighborhoodMarker(neighborhoodList)
+    addNeighborhoodMarker( neighborhoodList, neighborhoodMarkers )
     
     // ZOOM Fit to markers
     zoomFitMarkers();

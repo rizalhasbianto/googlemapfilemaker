@@ -1,5 +1,5 @@
 // add single marker
-function addMarker( markerData, infoWindow, staticImgUrl ) {
+function addMarker( markerData, infoWindow, staticImgUrl, markers ) {
     const marker = new google.maps.Marker({
       position: markerData.position,
       map,
@@ -73,7 +73,7 @@ function addMarker( markerData, infoWindow, staticImgUrl ) {
     markers.push(marker);
   }
 
-async function addNeighborhoodMarker( neighborhoodList ) {
+async function addNeighborhoodMarker( neighborhoodList, neighborhoodMarkers ) {
   for (let i = 0; i < neighborhoodList.length; i++) {
     const findNeighborhoodGeo = await getAddressLatLang(neighborhoodList[i].name)
     const neighborhoodMarker = new google.maps.Marker({
