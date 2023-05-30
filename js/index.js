@@ -1,9 +1,10 @@
 import { initData } from './lib/initData.js'
 import { initMap } from './lib/initMap.js'
 const url = 'https://BluePrintMap.hellomuto.repl.co/map-json';
+let map;
 
 // Create Map
-window.initMap = initMap;
+window.initMap = initMap(map);
 
 fetch(url, {
   method: 'GET',
@@ -11,7 +12,7 @@ fetch(url, {
 .then(response => response.json())
 .then(data => {
   // SHOWING PROPERTIES AND ADD MARKER TO MAP
-  initData(data);
+  initData(data, map);
 });
 
 // Load big img to properties

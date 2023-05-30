@@ -8,7 +8,6 @@ import { mapBoundFilter } from '../lib/mapBoundFilter.js'
 
 let markerPosition = []
 let neighborhoodList = []
-let map;
 let markers = [];
 let neighborhoodMarkers = [];
 let markersFilter = [];
@@ -16,7 +15,7 @@ let markersFilter = [];
 const splitMarkerZoom = 13;
 const staticImgUrl = "https://cdn.jsdelivr.net/gh/rizalhasbianto/googlemapfilemaker@main/img/";
  
-function initData(data) {
+function initData( data, map ) {
     const target = document.querySelector('.properties');
     const targetFilterCity = document.querySelector('.filter-neighborhood');
   
