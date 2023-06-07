@@ -20,6 +20,12 @@ function fillSlider(from, to, sliderColor, rangeColor, controlSlider, lowerLbl, 
       ${sliderColor} ${(toPosition)/(rangeDistance)*100}%, 
       ${sliderColor} 100%)`;
   }
+
+function getParsed(currentFrom, currentTo) {
+    const from = parseInt(currentFrom.value, 10);
+    const to = parseInt(currentTo.value, 10);
+    return [from, to];
+}
   
 function controlFromSlider(lower, upper, lowerLbl, upperLbl, type) {
     const [from, to] = getParsed(lower, upper);
