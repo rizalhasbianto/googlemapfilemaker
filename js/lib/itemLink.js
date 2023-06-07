@@ -1,4 +1,4 @@
-function itemLink(singleProLink) {
+function itemLink(singleProLink, data) {
     for (let i = 0; i < singleProLink.length; i++) {
         singleProLink[i].addEventListener("click", function(event){
             event.preventDefault();

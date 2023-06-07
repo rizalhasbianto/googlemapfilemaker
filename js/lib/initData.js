@@ -125,7 +125,7 @@ function initData( data, map ) {
 
     // Single property link function
     const singleProLink = document.querySelectorAll('.single-property-link');
-    itemLink(singleProLink);
+    itemLink(singleProLink, data);
 }
 
 export { initData }
