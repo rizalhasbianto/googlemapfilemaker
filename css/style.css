@@ -366,6 +366,9 @@ input[type=number]::-webkit-outer-spin-button {
   font-weight: 400;
   margin: 20px;
 }
+.price-wrap input {
+  min-width: 200px;
+}
 
 .price-wrap-1, 
 .price-wrap-2 {

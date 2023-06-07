@@ -41,7 +41,7 @@ function createFilter(markers, map, splitMarkerZoom) {
             lowerLbl.textContent = moneyFormatter.format(this.value)
         }
     })
-    
+
     Object.assign(upper, {
         id: 'upper',
         type: 'range',
@@ -72,7 +72,7 @@ function createFilter(markers, map, splitMarkerZoom) {
         onblur: function() {
           this.type=''; 
           this.lastValue=this.value; 
-          this.value= this.value==''?'': formatter.format(this.value)
+          this.value= this.value==''?'': moneyFormatter.format(this.value)
         },
         onchange: function () {
           let maxVal = parseInt(upper.value) - 100000;
@@ -83,7 +83,7 @@ function createFilter(markers, map, splitMarkerZoom) {
           }
           lower.value = maxVal
           controlFromSlider(lower, upper, lowerLbl, upperLbl)
-          lowerLbl.textContent = formatter.format(maxVal)
+          lowerLbl.textContent = moneyFormatter.format(maxVal)
           dataFilter(maxVal, upper.value, propList);
           filterMarker(maxVal, upper.value);
         }
@@ -102,7 +102,7 @@ function createFilter(markers, map, splitMarkerZoom) {
         onblur: function() {
           this.type=''; 
           this.lastValue=this.value; 
-          this.value= this.value==''?'': formatter.format(this.value)
+          this.value= this.value==''?'': moneyFormatter.format(this.value)
         },
         onchange: function () {
           let minVal = parseInt(lower.value) + 100000;
@@ -114,7 +114,7 @@ function createFilter(markers, map, splitMarkerZoom) {
           }
           upper.value = minVal
           controlFromSlider(lower, upper, lowerLbl, upperLbl)
-          upperLbl.textContent = formatter.format(minVal)
+          upperLbl.textContent = moneyFormatter.format(minVal)
           dataFilter(lower.value, minVal, propList);
           filterMarker(lower.value, minVal);
         },
