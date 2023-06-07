@@ -41,6 +41,7 @@ function createFilter(markers, map, splitMarkerZoom) {
             lowerLbl.textContent = moneyFormatter.format(this.value)
         }
     })
+    
     Object.assign(upper, {
         id: 'upper',
         type: 'range',
@@ -57,48 +58,65 @@ function createFilter(markers, map, splitMarkerZoom) {
             upperLbl.textContent = moneyFormatter.format(this.value)
         }
     })
+
     Object.assign(min, {
         id: 'min',
-        type: '',
-        inputMode: 'decimal',
+        inputMode:'decimal',
         placeholder: 'minimum',
+        min: minPrice,
+        max: maxPrice,
         onfocus: function() {
-            this.type = 'number';
-            this.value = this.lastValue;
+          this.type='number';
+          this.value=this.lastValue;
         },
         onblur: function() {
-            this.type = '';
-            this.lastValue = this.value;
-            this.value = this.value == '' ? '' : moneyFormatter.format(this.value)
+          this.type=''; 
+          this.lastValue=this.value; 
+          this.value= this.value==''?'': formatter.format(this.value)
         },
-        onchange: function() {
-            lower.value = this.value
-            controlFromSlider(lower, upper, lowerLbl, upperLbl)
-            lowerLbl.textContent = moneyFormatter.format(this.value)
-            dataFilter(this.value, upper.value, propList, map);
-            filterMarker(this.value, upper.value, map, markers, splitMarkerZoom);
-        },
+        onchange: function () {
+          let maxVal = parseInt(upper.value) - 100000;
+          if(this.value > maxVal) {
+            this.value = maxVal
+          } else {
+            maxVal = parseInt(this.value)
+          }
+          lower.value = maxVal
+          controlFromSlider(lower, upper, lowerLbl, upperLbl)
+          lowerLbl.textContent = formatter.format(maxVal)
+          dataFilter(maxVal, upper.value, propList);
+          filterMarker(maxVal, upper.value);
+        }
     })
+
     Object.assign(max, {
         id: 'max',
-        type: '',
-        inputMode: 'decimal',
+        inputMode:'decimal',
         placeholder: 'maximum',
+        min: minPrice,
+        max: maxPrice,
         onfocus: function() {
-            this.type = 'number';
-            this.value = this.lastValue;
+          this.type='number';
+          this.value=this.lastValue;
         },
         onblur: function() {
-            this.type = '';
-            this.lastValue = this.value;
-            this.value = this.value == '' ? '' : moneyFormatter.format(this.value)
+          this.type=''; 
+          this.lastValue=this.value; 
+          this.value= this.value==''?'': formatter.format(this.value)
         },
-        onchange: function() {
-            upper.value = this.value
-            controlFromSlider(lower, upper, lowerLbl, upperLbl)
-            upperLbl.textContent = moneyFormatter.format(this.value)
-            dataFilter(lower.value, this.value, propList, map);
-            filterMarker(lower.value, this.value, map, markers, splitMarkerZoom);
+        onchange: function () {
+          let minVal = parseInt(lower.value) + 100000;
+          
+          if(this.value < minVal) {
+            this.value = minVal
+          } else {
+            minVal = parseInt(this.value)
+          }
+          upper.value = minVal
+          controlFromSlider(lower, upper, lowerLbl, upperLbl)
+          upperLbl.textContent = formatter.format(minVal)
+          dataFilter(lower.value, minVal, propList);
+          filterMarker(lower.value, minVal);
         },
     })
 
