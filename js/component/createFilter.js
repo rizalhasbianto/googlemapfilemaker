@@ -27,6 +27,7 @@ function createFilter(markers, map, splitMarkerZoom) {
 
     Object.assign(lower, {
         id: 'lower',
+        class: 'input-filter',
         type: 'range',
         min: minPrice,
         max: maxPrice,
@@ -44,6 +45,7 @@ function createFilter(markers, map, splitMarkerZoom) {
 
     Object.assign(upper, {
         id: 'upper',
+        class: 'input-filter',
         type: 'range',
         min: minPrice,
         max: maxPrice,
@@ -61,6 +63,7 @@ function createFilter(markers, map, splitMarkerZoom) {
 
     Object.assign(min, {
         id: 'min',
+        class: 'input-filter',
         inputMode:'decimal',
         placeholder: 'minimum',
         min: minPrice,
@@ -91,6 +94,7 @@ function createFilter(markers, map, splitMarkerZoom) {
 
     Object.assign(max, {
         id: 'max',
+        class: 'input-filter',
         inputMode:'decimal',
         placeholder: 'maximum',
         min: minPrice,
