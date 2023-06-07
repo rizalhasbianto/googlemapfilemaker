@@ -23,11 +23,11 @@ function getParsed(currentFrom, currentTo) {
 function controlFromSlider(lower, upper, lowerLbl, upperLbl, type) {
     const [from, to] = getParsed(lower, upper);
     const range = to - from
-    if( range < 1000000) {
+    if( range < 100000) {
         if(type == "lower") {
-        lower.value = (to - 1000000)
+        lower.value = (to - 100000)
         } else if(type == "upper") {
-        upper.value = (from + 1000000)
+        upper.value = (from + 100000)
         }
     } else {
         fillSlider(lower, upper, '#ffffff00', '#5A84C0', upper, lowerLbl, upperLbl);

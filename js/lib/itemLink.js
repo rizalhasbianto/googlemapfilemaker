@@ -4,7 +4,7 @@ function itemLink(singleProLink, data) {
             event.preventDefault();
             sessionStorage.setItem(`singleProperty_${i}`, JSON.stringify(data[i]));
             console.log("index ",i)
-            //window.open(`./single-property?recId=${i}`);
+            window.open(`./single-property?recId=${i}`);
         });
     }
 }
