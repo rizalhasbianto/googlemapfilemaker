@@ -84,8 +84,8 @@ function createFilter(markers, map, splitMarkerZoom) {
           lower.value = maxVal
           controlFromSlider(lower, upper, lowerLbl, upperLbl)
           lowerLbl.textContent = moneyFormatter.format(maxVal)
-          dataFilter(maxVal, upper.value, propList);
-          filterMarker(maxVal, upper.value);
+          dataFilter(maxVal, upper.value, propList, map);
+          filterMarker(maxVal, upper.value, map, markers, splitMarkerZoom);
         }
     })
 
@@ -115,8 +115,8 @@ function createFilter(markers, map, splitMarkerZoom) {
           upper.value = minVal
           controlFromSlider(lower, upper, lowerLbl, upperLbl)
           upperLbl.textContent = moneyFormatter.format(minVal)
-          dataFilter(lower.value, minVal, propList);
-          filterMarker(lower.value, minVal);
+          dataFilter(lower.value, minVal, propList, map);
+          filterMarker(lower.value, minVal, map, markers, splitMarkerZoom);
         },
     })
 
