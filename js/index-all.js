@@ -377,6 +377,7 @@ function initData(data) {
   })
   Object.assign(min, {
     id: 'min',
+    className: 'input-filter',
     inputMode:'decimal',
     placeholder: 'minimum',
     min: minPrice,
