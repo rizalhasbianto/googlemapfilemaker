@@ -124,7 +124,7 @@ function initData( data, map ) {
     sortSelect?.addEventListener('change', sortData());
 
     // Single property link function
-    const singleProLink = document.querySelectorAll('.single-property-link');
+    const singleProLink = document.querySelectorAll('.properties .single-property-link');
     itemLink(singleProLink, data);
 }
 
