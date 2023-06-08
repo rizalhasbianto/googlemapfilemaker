@@ -5,7 +5,9 @@ import { zoomFitMarkers } from '../lib/filterMarker.js'
 import { createScrollBar } from '../component/createScrollBar.js'
 import { createSearch } from '../component/createSearch.js'
 import { mapBoundFilter } from '../lib/mapBoundFilter.js'
-import { itemLink } from '../lib/itemLink.js'
+import { itemLink, mobileViewLink } from '../lib/itemLink.js'
+import { closeMobileProperty } from '../lib/closeMobileProperty.js'
+import { generalEvent } from '../lib/generalEvent.js'
 
 let markerPosition = []
 let neighborhoodList = []
@@ -64,7 +66,7 @@ function initData( data, map ) {
         };
         
         // Add Marker to map
-        addMarker(markerData, infoWindow, staticImgUrl, markers, map );
+        addMarker(markerData, infoWindow, staticImgUrl, markers, map, i );
   
         // Create Property list
         createProperties(
@@ -124,8 +126,16 @@ function initData( data, map ) {
     sortSelect?.addEventListener('change', sortData());
 
     // Single property link function
-    const singleProLink = document.querySelectorAll('.properties .single-property-link');
-    itemLink(singleProLink, data);
+    itemLink(data);
+
+    // mobile view click
+    mobileViewLink(data);
+
+    // close mobile property popup
+    closeMobileProperty(markers);
+
+    // extra function
+    generalEvent();
 }
 
 export { initData }

@@ -41,6 +41,25 @@ fetch(url, {
   // SHOWING PROPERTIES AND ADD MARKER TO MAP
   initData(data);
 
+  //Mobile view click
+  const detailElm = document.querySelector('.detail-property');
+    const mobileLink = detailElm.querySelector('.view-wrap .single-property-link');
+    mobileLink.addEventListener("click", function(event){ 
+      const indexData = detailElm.getAttribute("index")
+        event.preventDefault();
+        sessionStorage.setItem(`singleProperty_${indexData}`, JSON.stringify(data[indexData]));
+        window.open(`./single-property?recId=${indexData}`);
+    });
+
+  const closeDetailMapView = document.querySelector(".filter-close-prop-list");
+    const detailProperty = document.querySelector(".detail-property")
+    closeDetailMapView.onclick = function() {
+      const indexMarker = detailProperty.getAttribute("index")
+    	detailProperty.classList.remove("show");
+      markers[indexMarker].setIcon(staticImgUrl+"property-marker.png");
+      markers[indexMarker].setAnimation(null);
+    }
+
   // filter function
   const propList = document.querySelectorAll('.prop-list-wrap');
   google.maps.event.addListener(map, 'idle', function() {
@@ -184,7 +203,7 @@ fetch(url, {
   });
 
   // Single property link function
-  const singleProLink = document.querySelectorAll('.single-property-link');
+  const singleProLink = document.querySelectorAll('.properties .single-property-link');
   for (let i = 0; i < singleProLink.length; i++) {
     singleProLink[i].addEventListener("click", function(event){
       event.preventDefault();
@@ -193,6 +212,7 @@ fetch(url, {
     });
   }
 });
+
 
 // SCROLLBAR change function
 function scrollbarChange() {
@@ -255,7 +275,7 @@ function initData(data) {
         id
       };
 
-      addMarker(markerData, infoWindow);
+      addMarker(markerData, infoWindow, i);
 
       var wraper = document.createElement("div"),
           option = document.createElement("option");
@@ -681,7 +701,7 @@ const getAddressLatLang = address => {
 };
 
 // add single marker
-function addMarker( markerData, infoWindow ) {
+function addMarker( markerData, infoWindow, i ) {
   const marker = new google.maps.Marker({
     position: markerData.position,
     map,
@@ -729,6 +749,7 @@ function addMarker( markerData, infoWindow ) {
               imgElement = detailElm.querySelector('.mbl-img-list-pop'),
               imgList = marker.room.img ? 'data:image/png;base64, ' + marker.room.img : staticImgUrl+'no-image.png';
 
+              detailElm.setAttribute("index", i)
               bathElm.textContent = marker.room.bathrooms;
               bedElm.textContent = marker.room.bedrooms;
               sqftElm.textContent = marker.room.sqft;
@@ -796,3 +817,5 @@ function isInViewport(el) {
 
   );
 }
+
+

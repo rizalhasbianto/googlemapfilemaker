@@ -1,5 +1,5 @@
 // add single marker
-function addMarker( markerData, infoWindow, staticImgUrl, markers, map ) {
+function addMarker( markerData, infoWindow, staticImgUrl, markers, map, i ) {
     const marker = new google.maps.Marker({
       position: markerData.position,
       map,
@@ -46,7 +46,8 @@ function addMarker( markerData, infoWindow, staticImgUrl, markers, map ) {
                 sqftElm = detailElm.querySelector(".sqfeet"),
                 imgElement = detailElm.querySelector('.mbl-img-list-pop'),
                 imgList = marker.room.img ? 'data:image/png;base64, ' + marker.room.img : staticImgUrl+'no-image.png';
-  
+
+                detailElm.setAttribute("index", i)
                 bathElm.textContent = marker.room.bathrooms;
                 bedElm.textContent = marker.room.bedrooms;
                 sqftElm.textContent = marker.room.sqft;
