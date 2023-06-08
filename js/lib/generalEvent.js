@@ -56,26 +56,19 @@ export function generalEvent() {
     const buttonView =  document.querySelector(".toogle-list");
     
     buttonView.onclick = function() {
-    	const currentText = this.textContent;
-      const mapElmWrap =  document.querySelector(".map-wraper");
-      const porplist = document.querySelector(".info");
-      if ( currentText == "List" ) {
-      	this.textContent = "Map"
-        mapElmWrap.classList.add("list-view")
-        porplist.scroll({
-          top: 0,
-          behavior: 'smooth'
-        })
-      } else {
-      	this.textContent = "List"
-        mapElmWrap.classList.remove("list-view")
-      }
-    }
-    
-    // close popslide map viewdetail-property
-    const closeDetailMapView = document.querySelector(".filter-close-prop-list");
-    const detailProperty = document.querySelector(".detail-property")
-    closeDetailMapView.onclick = function() {
-    	detailProperty.classList.remove("show");
+        const currentText = this.textContent;
+        const mapElmWrap =  document.querySelector(".map-wraper");
+        const porplist = document.querySelector(".info");
+        if ( currentText == "List" ) {
+            this.textContent = "Map"
+            mapElmWrap.classList.add("list-view")
+            porplist.scroll({
+            top: 0,
+            behavior: 'smooth'
+            })
+        } else {
+            this.textContent = "List"
+            mapElmWrap.classList.remove("list-view")
+        }
     }
 }
