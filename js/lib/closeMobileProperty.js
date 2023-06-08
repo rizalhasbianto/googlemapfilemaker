@@ -1,4 +1,4 @@
-export function closeMobileProperty(markers) {
+export function closeMobileProperty(markers,staticImgUrl) {
     const closeDetailMapView = document.querySelector(".filter-close-prop-list");
     const detailProperty = document.querySelector(".detail-property")
     closeDetailMapView.onclick = function() {

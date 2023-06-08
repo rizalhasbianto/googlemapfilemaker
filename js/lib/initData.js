@@ -132,7 +132,7 @@ function initData( data, map ) {
     mobileViewLink(data);
 
     // close mobile property popup
-    closeMobileProperty(markers);
+    closeMobileProperty(markers, staticImgUrl);
 
     // extra function
     generalEvent();
