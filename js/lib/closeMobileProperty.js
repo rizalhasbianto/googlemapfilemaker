@@ -4,6 +4,7 @@ export function closeMobileProperty(markers) {
     closeDetailMapView.onclick = function() {
         const indexMarker = detailProperty.getAttribute("index")
         detailProperty.classList.remove("show");
+        console.log(markers[indexMarker])
         markers[indexMarker].setIcon(staticImgUrl+"property-marker.png");
         markers[indexMarker].setAnimation(null);
     }
