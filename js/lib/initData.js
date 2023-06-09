@@ -99,8 +99,8 @@ function initData( data, map ) {
     // ZOOM Fit to markers
     zoomFitMarkers(map);
   
-    // BUILD SCROLLBAR
-    createScrollBar(target);
+    // BUILD SCROLLBAR and LOAD IMG
+    createScrollBar(target,staticImgUrl);
     
     // Search function
     createSearch();
