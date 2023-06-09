@@ -36,7 +36,7 @@ function createScrollBar(target,staticImgUrl) {
     propertiesWraper.addEventListener("scroll", function() {
         scrollbar.value = this.scrollTop;
 
-        for(i=0; i < propertiesWraper.length; i++ ) {
+        for(let i = 0; i < propertiesWraper.length; i++ ) {
             const propOnView = isInViewport(propertiesWraper[i]);
             const imgLoaded = propertiesWraper[i].getAttribute("img")
             if(!imgLoaded && propOnView) {
