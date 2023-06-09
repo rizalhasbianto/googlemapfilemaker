@@ -50,7 +50,8 @@ export async function createProperties(
         let imgListInfo = markerData.img ? 'data:image/png;base64, ' + markerData.img : staticImgUrl+'no-image.png'
 
         if( i <= 9 ) {
-            //imgListInfo = await getBigImgdata(id,staticImgUrl)
+            const imgListInfotest = await getBigImgdata(id,staticImgUrl)
+            console.log(imgListInfotest)
             wraper.setAttribute("img",true);
          }
 
