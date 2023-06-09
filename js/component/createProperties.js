@@ -1,4 +1,6 @@
-function createProperties(
+import { getBigImgdata } from "../lib/getBigImgdata.js"
+
+export async function createProperties(
     address, 
     city, 
     price, 
@@ -45,7 +47,13 @@ function createProperties(
             wraper.setAttribute("type", type);
         }
 
-        const imgListInfo = markerData.img ? 'data:image/png;base64, ' + markerData.img : staticImgUrl+'no-image.png'
+        let imgListInfo = markerData.img ? 'data:image/png;base64, ' + markerData.img : staticImgUrl+'no-image.png'
+
+        if( i <= 9 ) {
+            imgListInfo = await getBigImgdata(id,staticImgUrl)
+            wraper.setAttribute("img",true);
+         }
+
         const propertyType = markerData.type == "TH" ? "Townhouse" : "Single Family Residence"
         const moneyFormatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -78,5 +86,3 @@ function createProperties(
         target.appendChild(wraper);
     }
 }
-
-export { createProperties }
