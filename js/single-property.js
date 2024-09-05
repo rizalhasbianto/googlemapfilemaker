@@ -1,7 +1,7 @@
 // Getting Property Detail
 
 document.addEventListener('DOMContentLoaded', function(event) {
-  const url = 'https://blueprint-kylesmurdon.replit.app/single-json';
+  const url = 'https://yof5cw2m6rdd27h7nnwhg532dm0idkog.lambda-url.us-east-1.on.aws//single-json';
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const recId = urlParams.get('recId');
