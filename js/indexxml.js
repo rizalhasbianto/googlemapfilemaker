@@ -5,7 +5,7 @@ let map;
 let markers = [];
 let neighborhoodMarkers = [];
 let markersFilter = [];
-let url = 'https://BluePrintMap.hellomuto.repl.co/properties';
+let url = 'https://blueprint-kylesmurdon.replit.app/properties';
 let markerPosition = []
 let neighborhoodList = []
 

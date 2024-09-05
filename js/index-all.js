@@ -5,7 +5,7 @@ let map;
 let markers = [];
 let neighborhoodMarkers = [];
 let markersFilter = [];
-let url = 'https://BluePrintMap.hellomuto.repl.co/map-json';
+let url = 'https://blueprint-kylesmurdon.replit.app/map-json';
 let markerPosition = []
 let neighborhoodList = []
 
@@ -40,6 +40,39 @@ fetch(url, {
 .then(data => {
   // SHOWING PROPERTIES AND ADD MARKER TO MAP
   initData(data);
+
+  const allProperties = document.querySelectorAll(".prop-list-wrap");
+const infoWrap = document.querySelector(".info");
+
+function loadBigImgdata(id, prop) {
+  const bigImgUrl = 'https://BluePrintMap.hellomuto.repl.co/big-img?id=';
+  const staticImgUrl = "https://cdn.jsdelivr.net/gh/rizalhasbianto/googlemapfilemaker@main/img/";
+
+  fetch(bigImgUrl+id, {
+    method: 'GET'
+    //credentials: 'user:passwd'
+  })
+  .then(response => response.json())
+  .then(data => {
+    if(data.fullimg != "not found") {
+      const imgdata = data.fullimg ? 'data:image/png;base64, ' + data.fullimg : staticImgUrl+'no-image.png';
+      const imgWrap = prop.querySelector(".img-wrap")
+      imgWrap.setAttribute("src", imgdata)
+    }
+  })
+}
+
+infoWrap.onscroll = function() {
+  for(i=0; i < allProperties.length; i++ ) {
+    const propOnView = isInViewport(allProperties[i]);
+    const imgLoaded = allProperties[i].getAttribute("img")
+    if(!imgLoaded && propOnView) {
+      const id = allProperties[i].getAttribute("id")
+      loadBigImgdata(id, allProperties[i])
+      allProperties[i].setAttribute("img",true);
+    }
+  }
+}
 
   //Mobile view click
   const detailElm = document.querySelector('.detail-property');
@@ -228,7 +261,7 @@ function scrollbarChange() {
 }
 
 // SHOWING PROPERTIES AND ADD MARKER TO MAP
-function initData(data) {
+async function initData(data) {
   const target = document.querySelector('.properties');
   const targetFilterCity = document.querySelector('.filter-neighborhood');
 
@@ -308,7 +341,11 @@ function initData(data) {
           wraper.setAttribute("type", type);
         }
 
-        const imgListInfo = markerData.img ? 'data:image/png;base64, ' + markerData.img : staticImgUrl+'no-image.png'
+        let imgListInfo = markerData.img ? 'data:image/png;base64, ' + markerData.img : staticImgUrl+'no-image.png'
+
+        if( i <= 9 ) {
+            imgListInfo = await getBigImgdata(id,staticImgUrl)
+         }
         const propertyType = markerData.type == "TH" ? "Townhouse" : "Single Family Residence"
         const formatter = new Intl.NumberFormat('en-US', {
           style: 'currency',
@@ -819,3 +856,23 @@ function isInViewport(el) {
 }
 
 
+async function getBigImgdata(id, staticImgUrl) {
+  const fetchUrl = 'https://BluePrintMap.hellomuto.repl.co/big-img?id='+id;
+  console.log(fetchUrl)
+  const fetchOptions = {
+      endpoint: fetchUrl,
+      method: "GET"
+  };
+
+  try {
+      const data = await fetch(fetchUrl, fetchOptions).then((response) => response.json());
+      console.log(data)
+      if(data.fullimg != "not found") {
+        const imgdata = data.fullimg ? 'data:image/png;base64, ' + data.fullimg : staticImgUrl+'no-image.png';
+        return imgdata
+      } 
+      return staticImgUrl+'no-image.png'
+  } catch (error) {
+      throw new Error("Could not fetch data!");
+  }
+}

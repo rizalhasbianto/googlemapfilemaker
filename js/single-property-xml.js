@@ -1,7 +1,7 @@
 // Getting Property Detail
-const urlPropertyDetail = 'https://BluePrintMap.hellomuto.repl.co/property-detail',
-      urlPropertyVendor = 'https://BluePrintMap.hellomuto.repl.co/loan-detail',
-      urlPropertyImg = 'https://BluePrintMap.hellomuto.repl.co/img-detail',
+const urlPropertyDetail = 'https://blueprint-kylesmurdon.replit.app/property-detail',
+      urlPropertyVendor = 'https://blueprint-kylesmurdon.replit.app/loan-detail',
+      urlPropertyImg = 'https://blueprint-kylesmurdon.replit.app/img-detail',
       queryString = window.location.search,
       urlParams = new URLSearchParams(queryString),
       recId = `?recId=${urlParams.get('recId')}`

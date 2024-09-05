@@ -1,5 +1,5 @@
 export async function getBigImgdata(id, staticImgUrl) {
-    const fetchUrl = 'https://BluePrintMap.hellomuto.repl.co/big-img?id='+id;
+    const fetchUrl = 'https://blueprint-kylesmurdon.replit.app/big-img?id='+id;
     const fetchOptions = {
         endpoint: fetchUrl,
         method: "GET"
@@ -15,4 +15,4 @@ export async function getBigImgdata(id, staticImgUrl) {
     } catch (error) {
         return staticImgUrl+'no-image.png'
     }
- }
+  }

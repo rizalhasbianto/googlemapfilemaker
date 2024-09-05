@@ -163,7 +163,7 @@ PRICE FILTER
   position: relative;
 }
 
-.dropdown {
+.map-section .dropdown {
   cursor: pointer;
   border: 1px solid #585858;
   padding: 10px;
@@ -171,7 +171,7 @@ PRICE FILTER
   position: relative;
 }
 
-.dropdown:after {
+.map-section .dropdown:after {
   position: absolute;
   content: "";
   top: 14px;
@@ -182,12 +182,12 @@ PRICE FILTER
   border-color: #585858 transparent transparent transparent;
 }
 
-.dropdown select {
+.map-section .dropdown select {
   appearance: none;
   border: none;
 }
 
-.dropdown span {
+.map-section .dropdown span {
   margin-right: 35px;
 }
 
@@ -624,3 +624,19 @@ input[type=number]::-webkit-outer-spin-button {
   .list-price-item {
     line-height: 30px;
   }
+.bar-price {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    top: -22px;
+    justify-content: space-between;
+    text-align: center;
+    height: 52px;
+    align-items: flex-end;
+}
+.bar-item {
+  list-style: none;
+    background: #5a84c0;
+    display: block;
+      margin: 0 2px;
+}
