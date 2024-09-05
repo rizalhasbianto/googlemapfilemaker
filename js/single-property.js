@@ -1,7 +1,7 @@
 // Getting Property Detail
 
 document.addEventListener('DOMContentLoaded', function(event) {
-  const url = 'https://yof5cw2m6rdd27h7nnwhg532dm0idkog.lambda-url.us-east-1.on.aws//single-json';
+  const url = 'https://yof5cw2m6rdd27h7nnwhg532dm0idkog.lambda-url.us-east-1.on.aws/single-json';
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const recId = urlParams.get('recId');
@@ -87,8 +87,8 @@ function hidePreLoad() {
 
 function loadBigImgdata(id) {
   console.log("data searcing")
-  const bigImgUrl = 'https://blueprint-kylesmurdon.replit.app/big-img?id=';
-  const staticImgUrl = "https://blueprint-kylesmurdon.replit.app/img/";
+  const bigImgUrl = 'https://yof5cw2m6rdd27h7nnwhg532dm0idkog.lambda-url.us-east-1.on.aws/big-img?id=';
+  const staticImgUrl = "https://main.d7yn427fsa3k3.amplifyapp.com/img/";
 
   fetch(bigImgUrl + id, {
     method: 'GET'
