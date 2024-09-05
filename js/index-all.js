@@ -5,7 +5,7 @@ let map;
 let markers = [];
 let neighborhoodMarkers = [];
 let markersFilter = [];
-let url = 'https://blueprint-kylesmurdon.replit.app/map-json';
+let url = 'https://yof5cw2m6rdd27h7nnwhg532dm0idkog.lambda-url.us-east-1.on.aws/map-json';
 let markerPosition = []
 let neighborhoodList = []
 

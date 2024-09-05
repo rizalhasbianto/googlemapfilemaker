@@ -1,7 +1,7 @@
 import { getBigImgdata } from "./lib/getBigImgData.js";
-const url = "https://blueprint-kylesmurdon.replit.app/featured"
+const url = "https://yof5cw2m6rdd27h7nnwhg532dm0idkog.lambda-url.us-east-1.on.aws/featured"
 const slideElm = document.querySelector(".swiper-wrapper");
-const staticImgUrl = "https://blueprint-kylesmurdon.replit.app/img/";
+const staticImgUrl = "https://main.d7yn427fsa3k3.amplifyapp.com/img/";
 
 function createSliderItem(data) {
   const slideItem = slideElm.querySelector(".clone");

@@ -13,7 +13,7 @@ function isInViewport(el) {
 
 export async function loadFirstBigImg() {
   const propList = document.querySelectorAll('.prop-list-wrap');
-  const staticImgUrl = "https://blueprint-kylesmurdon.replit.app/img/";
+  const staticImgUrl = "https://main.d7yn427fsa3k3.amplifyapp.com/img/";
 
   for (let i = 0; i < 6; i++) {
     propList[i].setAttribute("img", true)

@@ -1,5 +1,5 @@
 export async function getBigImgdata(id, staticImgUrl) {
-    const fetchUrl = 'https://blueprint-kylesmurdon.replit.app/big-img?id='+id;
+    const fetchUrl = 'https://yof5cw2m6rdd27h7nnwhg532dm0idkog.lambda-url.us-east-1.on.aws/big-img?id='+id;
     const fetchOptions = {
         endpoint: fetchUrl,
         method: "GET"

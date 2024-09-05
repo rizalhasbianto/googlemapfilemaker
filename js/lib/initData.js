@@ -17,7 +17,7 @@ let neighborhoodMarkers = [];
 let markersFilter = [];
 
 const splitMarkerZoom = 13;
-const staticImgUrl = "https://blueprint-kylesmurdon.replit.app/img/";
+const staticImgUrl = "https://main.d7yn427fsa3k3.amplifyapp.com/img/";
 
 function initData(data, map) {
   const target = document.querySelector('.properties');
